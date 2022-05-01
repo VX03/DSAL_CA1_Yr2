@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DSAL_CA1_Yr2
 {
-    public partial class Form1 : Form
+    public partial class normal_mode : Form
     {
-        public Form1()
+        public normal_mode()
         {
             InitializeComponent();
         }
