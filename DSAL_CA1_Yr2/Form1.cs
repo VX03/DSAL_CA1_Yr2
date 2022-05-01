@@ -16,6 +16,5 @@ namespace DSAL_CA1_Yr2
         {
             InitializeComponent();
         }
-
     }
 }
