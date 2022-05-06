@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.layout = new System.Windows.Forms.Label();
-            this.labelComment = new System.Windows.Forms.Label();
+            this.labelMessage = new System.Windows.Forms.Label();
             this.btnDisableAll = new System.Windows.Forms.Button();
             this.btnEnableAll = new System.Windows.Forms.Button();
             this.rbDisable = new System.Windows.Forms.RadioButton();
@@ -56,24 +55,17 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnSafeDistanceMode = new System.Windows.Forms.Button();
+            this.panelSeats = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // layout
+            // labelMessage
             // 
-            this.layout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.layout.Location = new System.Drawing.Point(321, 11);
-            this.layout.Name = "layout";
-            this.layout.Size = new System.Drawing.Size(1000, 941);
-            this.layout.TabIndex = 41;
-            // 
-            // labelComment
-            // 
-            this.labelComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelComment.Location = new System.Drawing.Point(28, 797);
-            this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(270, 155);
-            this.labelComment.TabIndex = 40;
+            this.labelMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMessage.Location = new System.Drawing.Point(28, 797);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(270, 189);
+            this.labelMessage.TabIndex = 40;
             // 
             // btnDisableAll
             // 
@@ -311,14 +303,22 @@
             this.btnSafeDistanceMode.Text = "Setup Safe Distance Mode";
             this.btnSafeDistanceMode.UseVisualStyleBackColor = true;
             // 
+            // panelSeats
+            // 
+            this.panelSeats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSeats.Location = new System.Drawing.Point(317, 12);
+            this.panelSeats.Name = "panelSeats";
+            this.panelSeats.Size = new System.Drawing.Size(1272, 974);
+            this.panelSeats.TabIndex = 43;
+            // 
             // safe_distance_mode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1601, 998);
+            this.Controls.Add(this.panelSeats);
             this.Controls.Add(this.btnSafeDistanceMode);
-            this.Controls.Add(this.layout);
-            this.Controls.Add(this.labelComment);
+            this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnEndSimulation);
             this.Controls.Add(this.btnD);
@@ -348,9 +348,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label layout;
-        private System.Windows.Forms.Label labelComment;
+        private System.Windows.Forms.Label labelMessage;
         private System.Windows.Forms.Button btnDisableAll;
         private System.Windows.Forms.Button btnEnableAll;
         private System.Windows.Forms.RadioButton rbDisable;
@@ -377,5 +375,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnSafeDistanceMode;
+        private System.Windows.Forms.Panel panelSeats;
     }
 }

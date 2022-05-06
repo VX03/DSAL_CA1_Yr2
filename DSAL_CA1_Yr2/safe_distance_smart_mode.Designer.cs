@@ -29,9 +29,8 @@
         private void InitializeComponent()
         {
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.layout = new System.Windows.Forms.Label();
             this.btnA = new System.Windows.Forms.Button();
-            this.labelComment = new System.Windows.Forms.Label();
+            this.labelMessage = new System.Windows.Forms.Label();
             this.btnResetSimulation = new System.Windows.Forms.Button();
             this.btnD = new System.Windows.Forms.Button();
             this.btnC = new System.Windows.Forms.Button();
@@ -43,17 +42,10 @@
             this.btnLoad = new System.Windows.Forms.Button();
             this.numRow = new System.Windows.Forms.NumericUpDown();
             this.numCol = new System.Windows.Forms.NumericUpDown();
+            this.panelSeats = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numRow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCol)).BeginInit();
             this.SuspendLayout();
-            // 
-            // layout
-            // 
-            this.layout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.layout.Location = new System.Drawing.Point(336, 37);
-            this.layout.Name = "layout";
-            this.layout.Size = new System.Drawing.Size(1012, 1009);
-            this.layout.TabIndex = 63;
             // 
             // btnA
             // 
@@ -65,13 +57,13 @@
             this.btnA.Text = "Person A Booking";
             this.btnA.UseVisualStyleBackColor = false;
             // 
-            // labelComment
+            // labelMessage
             // 
-            this.labelComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelComment.Location = new System.Drawing.Point(43, 454);
-            this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(270, 155);
-            this.labelComment.TabIndex = 62;
+            this.labelMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMessage.Location = new System.Drawing.Point(43, 454);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(270, 155);
+            this.labelMessage.TabIndex = 62;
             // 
             // btnResetSimulation
             // 
@@ -174,16 +166,24 @@
             this.numCol.Size = new System.Drawing.Size(150, 27);
             this.numCol.TabIndex = 65;
             // 
+            // panelSeats
+            // 
+            this.panelSeats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSeats.Location = new System.Drawing.Point(319, 12);
+            this.panelSeats.Name = "panelSeats";
+            this.panelSeats.Size = new System.Drawing.Size(1042, 1031);
+            this.panelSeats.TabIndex = 66;
+            // 
             // safe_distance_smart_mode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 1055);
+            this.Controls.Add(this.panelSeats);
             this.Controls.Add(this.numCol);
             this.Controls.Add(this.numRow);
-            this.Controls.Add(this.layout);
             this.Controls.Add(this.btnA);
-            this.Controls.Add(this.labelComment);
+            this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.btnResetSimulation);
             this.Controls.Add(this.btnD);
             this.Controls.Add(this.btnC);
@@ -205,9 +205,8 @@
         #endregion
 
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Label layout;
         private System.Windows.Forms.Button btnA;
-        private System.Windows.Forms.Label labelComment;
+        private System.Windows.Forms.Label labelMessage;
         private System.Windows.Forms.Button btnResetSimulation;
         private System.Windows.Forms.Button btnD;
         private System.Windows.Forms.Button btnC;
@@ -219,5 +218,6 @@
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.NumericUpDown numRow;
         private System.Windows.Forms.NumericUpDown numCol;
+        private System.Windows.Forms.Panel panelSeats;
     }
 }

@@ -26,7 +26,7 @@ namespace DSAL_CA1_Yr2.Classes
 
             Node p = this.Start;
             //Traverse through the list until p refers to last node
-            while(p != null)
+            while(p.Next != null)
             {
                 p = p.Next;
             }//End of While

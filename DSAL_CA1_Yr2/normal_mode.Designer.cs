@@ -52,9 +52,9 @@
             this.rbEnable = new System.Windows.Forms.RadioButton();
             this.btnEditorMode = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
-            this.labelComment = new System.Windows.Forms.Label();
+            this.labelMessage = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.layout = new System.Windows.Forms.Label();
+            this.panelSeats = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -143,6 +143,7 @@
             this.btnGenerate.TabIndex = 10;
             this.btnGenerate.Text = "Generate Seats";
             this.btnGenerate.UseVisualStyleBackColor = true;
+            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
             // label5
             // 
@@ -285,29 +286,29 @@
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
             // 
-            // labelComment
+            // labelMessage
             // 
-            this.labelComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelComment.Location = new System.Drawing.Point(12, 759);
-            this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(270, 155);
-            this.labelComment.TabIndex = 19;
+            this.labelMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMessage.Location = new System.Drawing.Point(12, 759);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(270, 155);
+            this.labelMessage.TabIndex = 19;
             // 
-            // layout
+            // panelSeats
             // 
-            this.layout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.layout.Location = new System.Drawing.Point(305, 28);
-            this.layout.Name = "layout";
-            this.layout.Size = new System.Drawing.Size(1000, 886);
-            this.layout.TabIndex = 20;
+            this.panelSeats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSeats.Location = new System.Drawing.Point(297, 31);
+            this.panelSeats.Name = "panelSeats";
+            this.panelSeats.Size = new System.Drawing.Size(1008, 883);
+            this.panelSeats.TabIndex = 20;
             // 
             // normal_mode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1317, 923);
-            this.Controls.Add(this.layout);
-            this.Controls.Add(this.labelComment);
+            this.Controls.Add(this.panelSeats);
+            this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnEndSimulation);
             this.Controls.Add(this.btnD);
@@ -329,6 +330,7 @@
             this.Controls.Add(this.btnLoad);
             this.Name = "normal_mode";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.normal_mode_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -361,8 +363,8 @@
         private System.Windows.Forms.RadioButton rbEnable;
         private System.Windows.Forms.Button btnEditorMode;
         private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.Label labelComment;
+        private System.Windows.Forms.Label labelMessage;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Label layout;
+        private System.Windows.Forms.Panel panelSeats;
     }
 }
