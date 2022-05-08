@@ -36,7 +36,7 @@
             this.tbNoOfRow = new System.Windows.Forms.TextBox();
             this.tbSeatsPerRow = new System.Windows.Forms.TextBox();
             this.tbRowDivider = new System.Windows.Forms.TextBox();
-            this.rbColumnDivider = new System.Windows.Forms.TextBox();
+            this.tbColumnDivider = new System.Windows.Forms.TextBox();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.tbMaxSeat = new System.Windows.Forms.TextBox();
@@ -127,13 +127,13 @@
             this.tbRowDivider.Size = new System.Drawing.Size(125, 27);
             this.tbRowDivider.TabIndex = 8;
             // 
-            // rbColumnDivider
+            // tbColumnDivider
             // 
-            this.rbColumnDivider.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rbColumnDivider.Location = new System.Drawing.Point(157, 175);
-            this.rbColumnDivider.Name = "rbColumnDivider";
-            this.rbColumnDivider.Size = new System.Drawing.Size(125, 27);
-            this.rbColumnDivider.TabIndex = 9;
+            this.tbColumnDivider.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbColumnDivider.Location = new System.Drawing.Point(157, 175);
+            this.tbColumnDivider.Name = "tbColumnDivider";
+            this.tbColumnDivider.Size = new System.Drawing.Size(125, 27);
+            this.tbColumnDivider.TabIndex = 9;
             // 
             // btnGenerate
             // 
@@ -299,14 +299,14 @@
             this.panelSeats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSeats.Location = new System.Drawing.Point(297, 31);
             this.panelSeats.Name = "panelSeats";
-            this.panelSeats.Size = new System.Drawing.Size(1008, 883);
+            this.panelSeats.Size = new System.Drawing.Size(1065, 1012);
             this.panelSeats.TabIndex = 20;
             // 
             // normal_mode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1317, 923);
+            this.ClientSize = new System.Drawing.Size(1490, 1055);
             this.Controls.Add(this.panelSeats);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.groupBox1);
@@ -318,7 +318,7 @@
             this.Controls.Add(this.tbMaxSeat);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnGenerate);
-            this.Controls.Add(this.rbColumnDivider);
+            this.Controls.Add(this.tbColumnDivider);
             this.Controls.Add(this.tbRowDivider);
             this.Controls.Add(this.tbSeatsPerRow);
             this.Controls.Add(this.tbNoOfRow);
@@ -347,7 +347,7 @@
         private System.Windows.Forms.TextBox tbNoOfRow;
         private System.Windows.Forms.TextBox tbSeatsPerRow;
         private System.Windows.Forms.TextBox tbRowDivider;
-        private System.Windows.Forms.TextBox rbColumnDivider;
+        private System.Windows.Forms.TextBox tbColumnDivider;
         private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbMaxSeat;

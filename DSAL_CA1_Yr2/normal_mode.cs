@@ -58,6 +58,7 @@ namespace DSAL_CA1_Yr2
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
+            /*
             Seat s = new Seat();
             s.Row = 1;
             s.Column = 1;
@@ -108,8 +109,83 @@ namespace DSAL_CA1_Yr2
             labelSeat.Tag = new SeatInfo() { Row = s.Row, Column = s.Column };
             labelSeat.Click += new EventHandler(labelSeat_Click);
             this.panelSeats.Controls.Add(labelSeat);
+            */
+            
+            try
+            {
+                int space = 0;
+                int prevSpace = 0;
+                int row = int.Parse(tbNoOfRow.Text);
+                int seatsPerRow = int.Parse(tbSeatsPerRow.Text);
+                int[] rowDivider = convertStringToInt(",", tbRowDivider);
+                //int[] colDivider = convertStringToInt(",", tbColumnDivider);
+
+
+                for(int i = 1;i <= row; i++)
+                {
+                    for(int j = 1;j <= seatsPerRow; j++)
+                    {
+                        for(int n = 0; n < rowDivider.Length; n++)//check for row divider
+                        {
+                            if(rowDivider[n] == i)//row divider
+                            {
+                                space = (150 + prevSpace);
+                                break;
+                            }
+                            else// no divider
+                            {
+                                space = (70 + prevSpace);
+                            }
+                        }//End for loop
+                        
+                        GenerateSeat(i, j, space);
+
+                    }//end for loop
+                     prevSpace = space;
+                }//end for loop
+            }
+            catch(FormatException ex)
+            {
+                labelMessage.Text = ex.Message.ToString();
+            }
+            catch(Exception ex) { labelMessage.Text = ex.ToString(); }
         }//end of btnGenerate_Click
 
+        private void GenerateSeat(int i, int j, int rowSpace)
+        { 
+           Seat s = new Seat();
+           s.Row = i;
+           s.Column = j;
+           seatList.InsertAtEnd(s);
+           Label labelSeat = new Label();
+          //compute seat label
+           labelSeat.Text = s.ComputeSeatLabel();
+          // Location
+          //row divider
+           labelSeat.Location = new Point(((60 * s.Column) + (10 * (s.Column - 1))), rowSpace);
+          //Size
+           labelSeat.Size = new Size(60, 60);
+          //TextAlignment
+           labelSeat.TextAlign = ContentAlignment.MiddleCenter;
+          //border style
+           labelSeat.BorderStyle = BorderStyle.FixedSingle;
+          //background color
+           labelSeat.BackColor = Color.LightBlue;
+          //font 
+           labelSeat.Font = new Font("Calibri", 14, FontStyle.Bold);
+          //font color
+           labelSeat.ForeColor = Color.Black;
+          //Tag
+           labelSeat.Tag = new SeatInfo() { Row = s.Row, Column = s.Column };
+           labelSeat.Click += new EventHandler(labelSeat_Click);
+           this.panelSeats.Controls.Add(labelSeat);
+        }//End of generate seat
+        private int[] convertStringToInt(string split,TextBox s)
+        {
+            string[] stringArray = s.Text.Split(split);
+            int[] intArray = Array.ConvertAll(stringArray, s => int.Parse(s));
+            return intArray;
+        }
         private void labelSeat_Click(object sender, EventArgs e)
         {
             Label label = (Label)sender;
@@ -125,7 +201,7 @@ namespace DSAL_CA1_Yr2
             else
             {
                 seat.BookStatus = false;
-                label.BackColor = Color.LightBlue; ;
+                label.BackColor = Color.LightBlue; 
             }
 
 
