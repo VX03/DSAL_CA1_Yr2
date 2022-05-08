@@ -113,36 +113,57 @@ namespace DSAL_CA1_Yr2
             
             try
             {
-                int space = 0;
-                int prevSpace = 0;
+                int rowSpace = 0;
+                int prevRowSpace = 0;
+                int colSpace = 0;
+                int prevColSpace = 0;
+
                 int row = int.Parse(tbNoOfRow.Text);
                 int seatsPerRow = int.Parse(tbSeatsPerRow.Text);
                 int[] rowDivider = convertStringToInt(",", tbRowDivider);
-                //int[] colDivider = convertStringToInt(",", tbColumnDivider);
+                int[] colDivider = convertStringToInt(",", tbColumnDivider);
 
 
                 for(int i = 1;i <= row; i++)
                 {
-                    for(int j = 1;j <= seatsPerRow; j++)
+                    for (int j = 1;j <= seatsPerRow; j++)
                     {
                         for(int n = 0; n < rowDivider.Length; n++)//check for row divider
                         {
                             if(rowDivider[n] == i)//row divider
                             {
-                                space = (150 + prevSpace);
+                                rowSpace = (150 + prevRowSpace);
                                 break;
                             }
                             else// no divider
                             {
-                                space = (70 + prevSpace);
+                                rowSpace = (70 + prevRowSpace);
                             }
                         }//End for loop
                         
-                        GenerateSeat(i, j, space);
+                        for(int k = 0; k < colDivider.Length; k++)//col divider
+                        {
+                            if(colDivider[k] == j)
+                            {
+                                colSpace = (150 + prevColSpace);
+                                break;
+                            }
+                            else
+                            {
+                                colSpace = (70 + prevColSpace);
+                            }
+                            
+                        }//end for loop
+
+                        GenerateSeat(i, j, rowSpace, colSpace);
+                        prevColSpace = colSpace;
 
                     }//end for loop
-                     prevSpace = space;
+                    
+                    prevRowSpace = rowSpace;//add row space
+                    prevColSpace = 0;//add col space
                 }//end for loop
+
             }
             catch(FormatException ex)
             {
@@ -151,7 +172,7 @@ namespace DSAL_CA1_Yr2
             catch(Exception ex) { labelMessage.Text = ex.ToString(); }
         }//end of btnGenerate_Click
 
-        private void GenerateSeat(int i, int j, int rowSpace)
+        private void GenerateSeat(int i, int j, int rowSpace, int colSpace)
         { 
            Seat s = new Seat();
            s.Row = i;
@@ -160,9 +181,10 @@ namespace DSAL_CA1_Yr2
            Label labelSeat = new Label();
           //compute seat label
            labelSeat.Text = s.ComputeSeatLabel();
-          // Location
-          //row divider
-           labelSeat.Location = new Point(((60 * s.Column) + (10 * (s.Column - 1))), rowSpace);
+            // Location
+            //row divider
+            //((60 * s.Column) + (10 * (s.Column - 1)))
+            labelSeat.Location = new Point(colSpace, rowSpace);
           //Size
            labelSeat.Size = new Size(60, 60);
           //TextAlignment
