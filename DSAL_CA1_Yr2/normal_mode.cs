@@ -14,6 +14,12 @@ namespace DSAL_CA1_Yr2
     public partial class normal_mode : Form
     {
         SeatDoubleLinkedList seatList = new SeatDoubleLinkedList();
+        PanelLabels panelLabels = new PanelLabels();
+        bool personA = false;
+        bool personB = false;
+        bool personC = false;
+        bool personD = false;
+
         public normal_mode()
         {
             InitializeComponent();
@@ -38,79 +44,13 @@ namespace DSAL_CA1_Yr2
             seatList.InsertAtEnd(s);
 
             labelMessage.Text = "DoubleLinkedList has been built";
-
-            Label labelSeat = new Label();
-            labelSeat.Text = "A1";
-            labelSeat.Location = new Point(50, 50);
-            labelSeat.Size = new Size(60, 60);
-            labelSeat.TextAlign = ContentAlignment.MiddleCenter;
-            labelSeat.BorderStyle = BorderStyle.FixedSingle;
-            labelSeat.BackColor = Color.LightBlue;
-            labelSeat.Font = new Font("Calibri",14,FontStyle.Bold);
-            labelSeat.ForeColor = Color.Black;
-
-            labelSeat.Tag = new SeatInfo() {Row = 1, Column = 1 };
-            this.panelSeats.Controls.Add(labelSeat);
             */
         }//end of normal_mode_load
 
 
 
         private void btnGenerate_Click(object sender, EventArgs e)
-        {
-            /*
-            Seat s = new Seat();
-            s.Row = 1;
-            s.Column = 1;
-            seatList.InsertAtEnd(s);
-            Label labelSeat = new Label();
-            labelSeat.Text = s.ComputeSeatLabel();
-            labelSeat.Location = new Point(((60*s.Column)+(50*(s.Column-1))), 50);
-            labelSeat.Size = new Size(60, 60);
-            labelSeat.TextAlign = ContentAlignment.MiddleCenter;
-            labelSeat.BorderStyle = BorderStyle.FixedSingle;
-            labelSeat.BackColor = Color.LightBlue;
-            labelSeat.Font = new Font("Calibri", 14, FontStyle.Bold);
-            labelSeat.ForeColor = Color.Black;
-            labelSeat.Tag = new SeatInfo() { Row = s.Row, Column = s.Column };
-            labelSeat.Click += new EventHandler(labelSeat_Click);
-            this.panelSeats.Controls.Add(labelSeat);
-
-            s = new Seat();
-            s.Row = 1;
-            s.Column = 2;
-            seatList.InsertAtEnd(s);
-            labelSeat = new Label();
-            labelSeat.Text = s.ComputeSeatLabel();
-            labelSeat.Location = new Point(((60 * s.Column) + (50 * (s.Column - 1))), 50);
-            labelSeat.Size = new Size(60, 60);
-            labelSeat.TextAlign = ContentAlignment.MiddleCenter;
-            labelSeat.BorderStyle = BorderStyle.FixedSingle;
-            labelSeat.BackColor = Color.LightBlue;
-            labelSeat.Font = new Font("Calibri", 14, FontStyle.Bold);
-            labelSeat.ForeColor = Color.Black;
-            labelSeat.Tag = new SeatInfo() { Row = s.Row, Column = s.Column };
-            labelSeat.Click += new EventHandler(labelSeat_Click);
-            this.panelSeats.Controls.Add(labelSeat);
-
-            s = new Seat();
-            s.Row = 1;
-            s.Column = 3;
-            seatList.InsertAtEnd(s);
-            labelSeat = new Label();
-            labelSeat.Text = s.ComputeSeatLabel();
-            labelSeat.Location = new Point(((60 * s.Column) + (50 * (s.Column - 1))), 50);
-            labelSeat.Size = new Size(60, 60);
-            labelSeat.TextAlign = ContentAlignment.MiddleCenter;
-            labelSeat.BorderStyle = BorderStyle.FixedSingle;
-            labelSeat.BackColor = Color.LightBlue;
-            labelSeat.Font = new Font("Calibri", 14, FontStyle.Bold);
-            labelSeat.ForeColor = Color.Black;
-            labelSeat.Tag = new SeatInfo() { Row = s.Row, Column = s.Column };
-            labelSeat.Click += new EventHandler(labelSeat_Click);
-            this.panelSeats.Controls.Add(labelSeat);
-            */
-            
+        {    
             try
             {
                 int rowSpace = 0;
@@ -120,8 +60,8 @@ namespace DSAL_CA1_Yr2
 
                 int row = int.Parse(tbNoOfRow.Text);
                 int seatsPerRow = int.Parse(tbSeatsPerRow.Text);
-                int[] rowDivider = convertStringToInt(",", tbRowDivider);
-                int[] colDivider = convertStringToInt(",", tbColumnDivider);
+                int[] rowDivider = panelLabels.convertStringToInt(",", tbRowDivider);
+                int[] colDivider = panelLabels.convertStringToInt(",", tbColumnDivider);
 
 
                 for(int i = 1;i <= row; i++)
@@ -155,7 +95,7 @@ namespace DSAL_CA1_Yr2
                             
                         }//end for loop
 
-                        GenerateSeat(i, j, rowSpace, colSpace);
+                        panelLabels.GenerateSeat(i, j, rowSpace, colSpace,this.panelSeats);
                         prevColSpace = colSpace;
 
                     }//end for loop
@@ -172,68 +112,41 @@ namespace DSAL_CA1_Yr2
             catch(Exception ex) { labelMessage.Text = ex.ToString(); }
         }//end of btnGenerate_Click
 
-        private void GenerateSeat(int i, int j, int rowSpace, int colSpace)
-        { 
-           Seat s = new Seat();
-           s.Row = i;
-           s.Column = j;
-           seatList.InsertAtEnd(s);
-           Label labelSeat = new Label();
-          //compute seat label
-           labelSeat.Text = s.ComputeSeatLabel();
-            // Location
-            //row divider
-            //((60 * s.Column) + (10 * (s.Column - 1)))
-            labelSeat.Location = new Point(colSpace, rowSpace);
-          //Size
-           labelSeat.Size = new Size(60, 60);
-          //TextAlignment
-           labelSeat.TextAlign = ContentAlignment.MiddleCenter;
-          //border style
-           labelSeat.BorderStyle = BorderStyle.FixedSingle;
-          //background color
-           labelSeat.BackColor = Color.LightBlue;
-          //font 
-           labelSeat.Font = new Font("Calibri", 14, FontStyle.Bold);
-          //font color
-           labelSeat.ForeColor = Color.Black;
-          //Tag
-           labelSeat.Tag = new SeatInfo() { Row = s.Row, Column = s.Column };
-           labelSeat.Click += new EventHandler(labelSeat_Click);
-           this.panelSeats.Controls.Add(labelSeat);
-        }//End of generate seat
-        private int[] convertStringToInt(string split,TextBox s)
+        private void person_Click(object sender, EventArgs e)
         {
-            string[] stringArray = s.Text.Split(split);
-            int[] intArray = Array.ConvertAll(stringArray, s => int.Parse(s));
-            return intArray;
-        }
-        private void labelSeat_Click(object sender, EventArgs e)
-        {
-            Label label = (Label)sender;
-            SeatInfo seatInfo = (SeatInfo)label.Tag;
-            //MessageBox.Show(String.Format("Row{0} Column{1}",seatInfo.Row,seatInfo.Column));
-            Seat seat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column);
-
-            if(seat.BookStatus == false)
+            Button button = (Button)sender;
+            if(button.Text == "Person A Booking")
             {
-                seat.BookStatus = true;
-                label.BackColor = Color.LightGreen;
+                personA = true;
+                personB = false;
+                personC = false;
+                personD = false;
+            }
+            else if (button.Text == "Person B Booking")
+            {
+                personA = false;
+                personB = true;
+                personC = false;
+                personD = false;
+            }
+            else if(button.Text == "Person C Booking")
+            {
+                personA = false;
+                personB = false;
+                personC = true;
+                personD = false;
             }
             else
             {
-                seat.BookStatus = false;
-                label.BackColor = Color.LightBlue; 
+                personA = false;
+                personB = false;
+                personC = false;
+                personD = true;
             }
 
+            panelLabels.changeLabelColor(panelSeats);
 
-        }//end of labelSeat_Click
-
-        class SeatInfo
-        {
-            public int Row { get; set; }
-            public int Column { get; set; }
-        }//end of seatInfo
+        }
 
     }//end of normal_mode
 }
