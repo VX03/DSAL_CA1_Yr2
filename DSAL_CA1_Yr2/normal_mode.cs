@@ -15,6 +15,7 @@ namespace DSAL_CA1_Yr2
     {
         SeatDoubleLinkedList seatList = new SeatDoubleLinkedList();
         PanelLabels panelLabels = new PanelLabels();
+        int[] counterArray = { 0, 0, 0, 0 };
         bool personA = false;
         bool personB = false;
         bool personC = false;
@@ -95,7 +96,7 @@ namespace DSAL_CA1_Yr2
                             
                         }//end for loop
 
-                        panelLabels.GenerateSeat(i, j, rowSpace, colSpace,this.panelSeats);
+                        GenerateSeat(i, j, rowSpace, colSpace,this.panelSeats);
                         prevColSpace = colSpace;
 
                     }//end for loop
@@ -114,39 +115,198 @@ namespace DSAL_CA1_Yr2
 
         private void person_Click(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
-            if(button.Text == "Person A Booking")
+            try
             {
-                personA = true;
-                personB = false;
-                personC = false;
-                personD = false;
-            }
-            else if (button.Text == "Person B Booking")
-            {
-                personA = false;
-                personB = true;
-                personC = false;
-                personD = false;
-            }
-            else if(button.Text == "Person C Booking")
-            {
-                personA = false;
-                personB = false;
-                personC = true;
-                personD = false;
-            }
-            else
-            {
-                personA = false;
-                personB = false;
-                personC = false;
-                personD = true;
-            }
+                int maxSeat = int.Parse(tbMaxSeat.Text);
+                Button button = (Button)sender;
 
-            panelLabels.changeLabelColor(panelSeats);
+                Boolean[] personArray = { personA, personB, personC, personD };
 
+                if (button.Text == "Person A Booking")
+                {
+                    personA = true;
+                    personB = false;
+                    personC = false;
+                    personD = false;
+                }
+                else if (button.Text == "Person B Booking")
+                {
+                    personA = false;
+                    personB = true;
+                    personC = false;
+                    personD = false;
+                }
+                else if (button.Text == "Person C Booking")
+                {
+                    personA = false;
+                    personB = false;
+                    personC = true;
+                    personD = false;
+                }
+                else
+                {
+                    personA = false;
+                    personB = false;
+                    personC = false;
+                    personD = true;
+                }
+
+                disableUponButton();
+                panelLabels.changeLabelColor(panelSeats);
+            }
+            catch(FormatException ex)
+            {
+                MessageBox.Show("Please input max seats!!!");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
+        public void GenerateSeat(int i, int j, int rowSpace, int colSpace, Panel panelSeats)
+        {
+
+            Seat s = new Seat();
+            s.Row = i;
+            s.Column = j;
+            seatList.InsertAtEnd(s);
+            Label labelSeat = new Label();
+            //compute seat label
+            labelSeat.Text = s.ComputeSeatLabel();
+            // Location
+            //row divider
+            //((60 * s.Column) + (10 * (s.Column - 1)))
+            labelSeat.Location = new Point(colSpace, rowSpace);
+            //Size
+            labelSeat.Size = new Size(60, 60);
+            //TextAlignment
+            labelSeat.TextAlign = ContentAlignment.MiddleCenter;
+            //border style
+            labelSeat.BorderStyle = BorderStyle.FixedSingle;
+            //background color
+            labelSeat.BackColor = Color.LightBlue;
+            //font 
+            labelSeat.Font = new Font("Calibri", 14, FontStyle.Bold);
+            //font color
+            labelSeat.ForeColor = Color.Black;
+            //Tag
+            labelSeat.Tag = new SeatInfo() { Row = s.Row, Column = s.Column };
+            labelSeat.Click += new EventHandler(labelSeat_Click);
+            panelSeats.Controls.Add(labelSeat);
+        }//End of generate seat
+
+        public void labelSeat_Click(object sender, EventArgs e)
+        {
+            Color color = Color.White;//set color to white
+            Label label = (Label)sender;//label that is clicked
+            SeatInfo seatInfo = (SeatInfo)label.Tag;//tag label
+            //MessageBox.Show(String.Format("Row{0} Column{1}",seatInfo.Row,seatInfo.Column));
+
+            //get person and color Array
+            Boolean[] personArray = getPersonArray();
+            Color[] colorArray = getColorArray();
+
+            Seat seat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column);
+            Seat rightSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column + 1);
+            Seat leftSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column - 1);
+
+            int maxSeat = int.Parse(tbMaxSeat.Text);
+
+                for (int i = 0; i < personArray.Length; i++)
+                {
+                    if (personArray[i] == true)
+                    {
+                            color = colorArray[i];//set color
+
+                            //chose seat
+                            if (label.BackColor == Color.White)
+                            {
+                                if (counterArray[i] < maxSeat)
+                                {
+                                    //if left or right seat is null
+                                    if (leftSeat == null || rightSeat == null)
+                                    {
+                                        //none chosen
+                                        if (counterArray[i] == 0)
+                                        {
+                                            counterArray[i]++;
+                                            seat.BookStatus = true;
+                                            label.BackColor = color;
+                                    
+                                        }
+                                        //left or right seat bookstatus = true
+                                        else if ((leftSeat != null && leftSeat.BookStatus == true) || (rightSeat != null && rightSeat.BookStatus == true))
+                                        {
+                                            counterArray[i]++;
+                                            seat.BookStatus = true;
+                                            label.BackColor = color;
+                                    
+                                        }//end else if 
+                                    }
+                                    //left or right seats are not null
+                                    else if (leftSeat.BookStatus || rightSeat.BookStatus || counterArray[i] == 0)
+                                    {
+                                        counterArray[i]++;
+                                        seat.BookStatus = true;
+                                        label.BackColor = color;
+                                    
+                                    }//end else if
+                                }//end if
+                            else
+                            {
+                                MessageBox.Show("Unable to add more seats!!!");
+                            }
+                            }//end if
+                             //delete seat
+                            else if (label.BackColor == colorArray[i])
+                            {
+                                //left or right seat is null
+                                if (leftSeat == null || rightSeat == null)
+                                {
+                                    counterArray[i]--;
+                                    seat.BookStatus = false;
+                                    label.BackColor = Color.White;
+
+                                }
+                                else if (!(rightSeat.BookStatus && leftSeat.BookStatus))
+                                {
+                                    counterArray[i]--;
+                                    seat.BookStatus = false;
+                                    label.BackColor = Color.White;
+
+                                }//end else if
+
+                            }//end else if
+                        
+                        
+                    }//end if
+                    
+                }//end of forloop
+
+        }//end of labelSeat_Click
+        public Boolean[] getPersonArray()
+        {
+            Boolean[] personArray = { personA, personB, personC, personD };
+            return personArray;
+        }
+
+        public Color[] getColorArray()
+        {
+            Color[] colorArray = { btnA.BackColor, btnB.BackColor, btnC.BackColor, btnD.BackColor};
+            return colorArray;
+        }
+
+        public void disableUponButton()
+        {
+            tbNoOfRow.Enabled = false;
+            tbSeatsPerRow.Enabled = false;
+            tbRowDivider.Enabled = false;
+            tbColumnDivider.Enabled = false;
+            tbMaxSeat.Enabled = false;
+
+            btnGenerate.Enabled = false;
+            
+        }
     }//end of normal_mode
 }

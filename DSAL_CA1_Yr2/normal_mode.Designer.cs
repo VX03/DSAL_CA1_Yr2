@@ -234,6 +234,7 @@
             // 
             // btnDisableAll
             // 
+            this.btnDisableAll.Enabled = false;
             this.btnDisableAll.Location = new System.Drawing.Point(71, 149);
             this.btnDisableAll.Name = "btnDisableAll";
             this.btnDisableAll.Size = new System.Drawing.Size(108, 29);
@@ -243,6 +244,7 @@
             // 
             // btnEnableAll
             // 
+            this.btnEnableAll.Enabled = false;
             this.btnEnableAll.Location = new System.Drawing.Point(71, 102);
             this.btnEnableAll.Name = "btnEnableAll";
             this.btnEnableAll.Size = new System.Drawing.Size(108, 29);
@@ -253,6 +255,7 @@
             // rbDisable
             // 
             this.rbDisable.AutoSize = true;
+            this.rbDisable.Enabled = false;
             this.rbDisable.Location = new System.Drawing.Point(136, 72);
             this.rbDisable.Name = "rbDisable";
             this.rbDisable.Size = new System.Drawing.Size(80, 24);
@@ -264,6 +267,7 @@
             // rbEnable
             // 
             this.rbEnable.AutoSize = true;
+            this.rbEnable.Enabled = false;
             this.rbEnable.Location = new System.Drawing.Point(33, 72);
             this.rbEnable.Name = "rbEnable";
             this.rbEnable.Size = new System.Drawing.Size(75, 24);
