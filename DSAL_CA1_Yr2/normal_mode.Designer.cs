@@ -55,6 +55,7 @@
             this.labelMessage = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panelSeats = new System.Windows.Forms.Panel();
+            this.btnResetSimulation = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -285,6 +286,7 @@
             this.btnEditorMode.TabIndex = 19;
             this.btnEditorMode.Text = "Enter Editor Mode";
             this.btnEditorMode.UseVisualStyleBackColor = true;
+            this.btnEditorMode.Click += new System.EventHandler(this.btnEditorMode_Click);
             // 
             // btnLoad
             // 
@@ -298,7 +300,7 @@
             // labelMessage
             // 
             this.labelMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelMessage.Location = new System.Drawing.Point(12, 759);
+            this.labelMessage.Location = new System.Drawing.Point(12, 796);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(270, 155);
             this.labelMessage.TabIndex = 19;
@@ -311,11 +313,22 @@
             this.panelSeats.Size = new System.Drawing.Size(1065, 1012);
             this.panelSeats.TabIndex = 20;
             // 
+            // btnResetSimulation
+            // 
+            this.btnResetSimulation.Location = new System.Drawing.Point(12, 750);
+            this.btnResetSimulation.Name = "btnResetSimulation";
+            this.btnResetSimulation.Size = new System.Drawing.Size(270, 33);
+            this.btnResetSimulation.TabIndex = 21;
+            this.btnResetSimulation.Text = "Reset Simulation";
+            this.btnResetSimulation.UseVisualStyleBackColor = true;
+            this.btnResetSimulation.Click += new System.EventHandler(this.btnResetSimulation_Click);
+            // 
             // normal_mode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1490, 1055);
+            this.Controls.Add(this.btnResetSimulation);
             this.Controls.Add(this.panelSeats);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.groupBox1);
@@ -375,5 +388,6 @@
         private System.Windows.Forms.Label labelMessage;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel panelSeats;
+        private System.Windows.Forms.Button btnResetSimulation;
     }
 }
