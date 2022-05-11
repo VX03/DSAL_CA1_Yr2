@@ -34,6 +34,65 @@ namespace DSAL_CA1_Yr2.Classes
             newNode.Prev = p;
         }//End of InsertAtEnd
 
+        public void DeleteSeat(Seat pSeatData)
+        {
+            if (this.Start == null)
+            {
+                return;
+            }//end of if
+            if (this.Start.Next == null)
+            {
+                if (this.Start.Seat == pSeatData)
+                {
+                    this.Start = null;
+                }
+                else
+                {
+                    Console.WriteLine("{0} is not found on the list", pSeatData);
+                }//end of else if
+                return;
+            }//End of if
+
+            //If node satisfies criteria is the first node,logic need to handle node
+            //deletion seperately
+            if (this.Start.Seat == pSeatData)
+            {
+                this.Start = this.Start.Next;
+                this.Start.Prev = null;
+                return;
+            }//end if
+
+            //Do looping to find the node which match the search criteria
+            Node p = this.Start.Next;
+
+            while (p.Next != null)
+            {
+                if (p.Seat == pSeatData)
+                {
+                    break;
+                }//end if
+                p = p.Next;
+            }//end while
+
+            if (p.Next != null)
+            {//node is in-between
+                p.Prev.Next = p.Next;
+                p.Next.Prev = p.Prev;
+            }
+            else
+            {//if node is last node
+                if (p.Seat == pSeatData)
+                {
+                    //statement is required because of the weakness of loop
+                    //last node might not be checked against seatch criteria
+                    p.Prev.Next = null;
+                }
+                else
+                {
+                    Console.WriteLine("{0} is not found on the list", pSeatData);
+                }
+            }//End if
+        }//end of DeleteNode
         public Seat SearchByRowAndColumn(int pRow,int pColumn)
         {
             Node p = this.Start;

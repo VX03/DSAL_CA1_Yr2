@@ -14,13 +14,18 @@ namespace DSAL_CA1_Yr2
     public partial class normal_mode : Form
     {
         SeatDoubleLinkedList seatList = new SeatDoubleLinkedList();
+        SeatDoubleLinkedList seatListA = new SeatDoubleLinkedList();
+        SeatDoubleLinkedList seatListB = new SeatDoubleLinkedList();
+        SeatDoubleLinkedList seatListC = new SeatDoubleLinkedList();
+        SeatDoubleLinkedList seatListD = new SeatDoubleLinkedList();
+
         PanelLabels panelLabels = new PanelLabels();
         int[] counterArray = { 0, 0, 0, 0 };
         bool personA = false;
         bool personB = false;
         bool personC = false;
         bool personD = false;
-
+        
         public normal_mode()
         {
             InitializeComponent();
@@ -71,7 +76,7 @@ namespace DSAL_CA1_Yr2
                     {
                         for(int n = 0; n < rowDivider.Length; n++)//check for row divider
                         {
-                            if(rowDivider[n] == i)//row divider
+                            if(rowDivider[n]+1 == i)//row divider
                             {
                                 rowSpace = (150 + prevRowSpace);
                                 break;
@@ -84,7 +89,7 @@ namespace DSAL_CA1_Yr2
                         
                         for(int k = 0; k < colDivider.Length; k++)//col divider
                         {
-                            if(colDivider[k] == j)
+                            if(colDivider[k]+1 == j)
                             {
                                 colSpace = (150 + prevColSpace);
                                 break;
@@ -117,9 +122,9 @@ namespace DSAL_CA1_Yr2
         {
             try
             {
-                int maxSeat = int.Parse(tbMaxSeat.Text);
                 Button button = (Button)sender;
 
+                
                 Boolean[] personArray = { personA, personB, personC, personD };
 
                 if (button.Text == "Person A Booking")
@@ -150,13 +155,11 @@ namespace DSAL_CA1_Yr2
                     personC = false;
                     personD = true;
                 }
-
+                
                 disableUponButton();
+                tbMaxSeat.Enabled = true;
                 panelLabels.changeLabelColor(panelSeats);
-            }
-            catch(FormatException ex)
-            {
-                MessageBox.Show("Please input max seats!!!");
+
             }
             catch(Exception ex)
             {
@@ -166,7 +169,6 @@ namespace DSAL_CA1_Yr2
 
         public void GenerateSeat(int i, int j, int rowSpace, int colSpace, Panel panelSeats)
         {
-
             Seat s = new Seat();
             s.Row = i;
             s.Column = j;
@@ -198,67 +200,108 @@ namespace DSAL_CA1_Yr2
 
         public void labelSeat_Click(object sender, EventArgs e)
         {
-            Color color = Color.White;//set color to white
-            Label label = (Label)sender;//label that is clicked
-            SeatInfo seatInfo = (SeatInfo)label.Tag;//tag label
-            //MessageBox.Show(String.Format("Row{0} Column{1}",seatInfo.Row,seatInfo.Column));
+            try
+            {
+                    Color color = Color.White;//set color to white
+                    Label label = (Label)sender;//label that is clicked
+                    SeatInfo seatInfo = (SeatInfo)label.Tag;//tag label
 
-            //get person and color Array
-            Boolean[] personArray = getPersonArray();
-            Color[] colorArray = getColorArray();
+                    //get person and color Array
+                    Boolean[] personArray = getPersonArray();
+                    Color[] colorArray = getColorArray();
+                    string[] bookingPersonArray = { "A", "B", "C", "D" };
 
-            Seat seat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column);
-            Seat rightSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column + 1);
-            Seat leftSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column - 1);
+                    Seat seat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column);
+                    Seat rightSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column + 1);
+                    Seat leftSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column - 1);
 
-            int maxSeat = int.Parse(tbMaxSeat.Text);
+                    int maxSeat = int.Parse(tbMaxSeat.Text);
 
-                for (int i = 0; i < personArray.Length; i++)
-                {
-                    if (personArray[i] == true)
+                    tbMaxSeat.Enabled = false;
+
+                    for (int i = 0; i < personArray.Length; i++)
                     {
+                        if (personArray[i] == true)
+                        {
                             color = colorArray[i];//set color
 
                             //chose seat
                             if (label.BackColor == Color.White)
                             {
+                                //limit the number of seats
                                 if (counterArray[i] < maxSeat)
                                 {
-                                    //if left or right seat is null
-                                    if (leftSeat == null || rightSeat == null)
-                                    {
-                                        //none chosen
-                                        if (counterArray[i] == 0)
-                                        {
-                                            counterArray[i]++;
-                                            seat.BookStatus = true;
-                                            label.BackColor = color;
-                                    
-                                        }
-                                        //left or right seat bookstatus = true
-                                        else if ((leftSeat != null && leftSeat.BookStatus == true) || (rightSeat != null && rightSeat.BookStatus == true))
-                                        {
-                                            counterArray[i]++;
-                                            seat.BookStatus = true;
-                                            label.BackColor = color;
-                                    
-                                        }//end else if 
-                                    }
-                                    //left or right seats are not null
-                                    else if (leftSeat.BookStatus || rightSeat.BookStatus || counterArray[i] == 0)
-                                    {
-                                        counterArray[i]++;
-                                        seat.BookStatus = true;
-                                        label.BackColor = color;
-                                    
-                                    }//end else if
-                                }//end if
-                            else
-                            {
-                                MessageBox.Show("Unable to add more seats!!!");
-                            }
+                                     //if left or right seat is null
+                                     if (leftSeat == null || rightSeat == null)
+                                     {
+                                         //there is a different person seating at the side
+                                         if(!((leftSeat != null && leftSeat.BookingPerson == bookingPersonArray[i]) || (rightSeat != null && rightSeat.BookingPerson == bookingPersonArray[i])))
+                                         {
+                                            MessageBox.Show("Unable to book seat!!!");
+                                         }
+                                         //none chosen
+                                         else if (counterArray[i] == 0)
+                                         {
+                                             counterArray[i]++;
+                                             seat.BookStatus = true;
+                                             seat.BookingPerson = bookingPersonArray[i];
+                                             label.BackColor = color;
+                                     
+                                         }
+                                         
+                                         //left or right seat
+                                         else if ((leftSeat != null && leftSeat.BookingPerson == bookingPersonArray[i]) || (rightSeat != null && rightSeat.BookingPerson == bookingPersonArray[i]))
+                                         {
+                                             counterArray[i]++;
+                                             seat.BookStatus = true;
+                                             seat.BookingPerson = bookingPersonArray[i];
+                                             label.BackColor = color;
+                                     
+                                         }//end else if 
+                                         
+                                         else
+                                         {
+                                             MessageBox.Show("You may only book adjacent seats!!!");
+                                         }
+                                     }//end of if for null seats
+
+                                     //for non-null seats
+                                     else if(counterArray[i] == 0 && leftSeat.BookingPerson == null && rightSeat.BookingPerson == null)
+                                     {
+                                         counterArray[i]++;
+                                         seat.BookStatus = true;
+                                         seat.BookingPerson = bookingPersonArray[i];
+                                         label.BackColor = color;
+                                     }//end else if
+
+                                     //left or right seats are not null
+                                     else if (leftSeat.BookingPerson == bookingPersonArray[i] || rightSeat.BookingPerson == bookingPersonArray[i])
+                                     {
+                                         counterArray[i]++;
+                                         seat.BookStatus = true;
+                                         seat.BookingPerson = bookingPersonArray[i];
+                                         label.BackColor = color;
+                                     
+                                     }//end else if
+
+                                     //there is a different person seating at the side
+                                     else if (!(leftSeat.BookingPerson == bookingPersonArray[i] || rightSeat.BookingPerson == bookingPersonArray[i]))
+                                     {
+                                         MessageBox.Show("Unable to book seat");
+                                     }
+                                     else
+                                     {
+                                         MessageBox.Show("You may only book adjacent seats!!!");
+                                     }
+                                } //end if
+                                else
+                                {
+                                    MessageBox.Show("Unable to add more seats!!!");
+                                }
+                            
                             }//end if
-                             //delete seat
+
+                            //delete seat
                             else if (label.BackColor == colorArray[i])
                             {
                                 //left or right seat is null
@@ -266,6 +309,7 @@ namespace DSAL_CA1_Yr2
                                 {
                                     counterArray[i]--;
                                     seat.BookStatus = false;
+                                    seat.BookingPerson = null;
                                     label.BackColor = Color.White;
 
                                 }
@@ -273,17 +317,30 @@ namespace DSAL_CA1_Yr2
                                 {
                                     counterArray[i]--;
                                     seat.BookStatus = false;
+                                    seat.BookingPerson = null;
                                     label.BackColor = Color.White;
 
                                 }//end else if
 
                             }//end else if
-                        
-                        
-                    }//end if
-                    
-                }//end of forloop
+                            else
+                            {
+                                MessageBox.Show("Unable to choose seat");
+                            }
 
+                        }//end if
+
+                    }//end of forloop
+                MessageBox.Show("person booking: " + seat.BookingPerson);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Please input max seats!!!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);    
+            }
         }//end of labelSeat_Click
         public Boolean[] getPersonArray()
         {
@@ -308,5 +365,7 @@ namespace DSAL_CA1_Yr2
             btnGenerate.Enabled = false;
             
         }
+
+
     }//end of normal_mode
 }

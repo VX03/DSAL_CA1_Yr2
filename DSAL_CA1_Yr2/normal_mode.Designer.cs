@@ -157,6 +157,7 @@
             // tbMaxSeat
             // 
             this.tbMaxSeat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbMaxSeat.Enabled = false;
             this.tbMaxSeat.Location = new System.Drawing.Point(157, 266);
             this.tbMaxSeat.Name = "tbMaxSeat";
             this.tbMaxSeat.Size = new System.Drawing.Size(125, 27);

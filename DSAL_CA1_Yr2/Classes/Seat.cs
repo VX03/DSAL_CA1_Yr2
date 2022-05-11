@@ -15,6 +15,13 @@ namespace DSAL_CA1_Yr2.Classes
         //the _column field is 3 if obj modelling a seat at col 3
         private int _column;
 
+        private string _bookingPerson;
+
+        public string BookingPerson
+        {
+            get { return _bookingPerson; }
+            set { _bookingPerson = value; }
+        }
         public int Row
         {
             get { return _row; }//get method
