@@ -56,6 +56,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panelSeats = new System.Windows.Forms.Panel();
             this.btnResetSimulation = new System.Windows.Forms.Button();
+            this.btnUndo = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,7 +139,7 @@
             // 
             // btnGenerate
             // 
-            this.btnGenerate.Location = new System.Drawing.Point(12, 224);
+            this.btnGenerate.Location = new System.Drawing.Point(2, 208);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(270, 29);
             this.btnGenerate.TabIndex = 10;
@@ -149,7 +150,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 266);
+            this.label5.Location = new System.Drawing.Point(12, 298);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 20);
             this.label5.TabIndex = 11;
@@ -159,7 +160,7 @@
             // 
             this.tbMaxSeat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbMaxSeat.Enabled = false;
-            this.tbMaxSeat.Location = new System.Drawing.Point(157, 266);
+            this.tbMaxSeat.Location = new System.Drawing.Point(103, 298);
             this.tbMaxSeat.Name = "tbMaxSeat";
             this.tbMaxSeat.Size = new System.Drawing.Size(125, 27);
             this.tbMaxSeat.TabIndex = 12;
@@ -167,7 +168,7 @@
             // btnA
             // 
             this.btnA.BackColor = System.Drawing.Color.Yellow;
-            this.btnA.Location = new System.Drawing.Point(12, 299);
+            this.btnA.Location = new System.Drawing.Point(12, 331);
             this.btnA.Name = "btnA";
             this.btnA.Size = new System.Drawing.Size(270, 29);
             this.btnA.TabIndex = 13;
@@ -179,7 +180,7 @@
             // 
             this.btnB.BackColor = System.Drawing.Color.Blue;
             this.btnB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnB.Location = new System.Drawing.Point(12, 345);
+            this.btnB.Location = new System.Drawing.Point(12, 377);
             this.btnB.Name = "btnB";
             this.btnB.Size = new System.Drawing.Size(270, 29);
             this.btnB.TabIndex = 14;
@@ -191,7 +192,7 @@
             // 
             this.btnC.BackColor = System.Drawing.Color.Red;
             this.btnC.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnC.Location = new System.Drawing.Point(12, 392);
+            this.btnC.Location = new System.Drawing.Point(12, 424);
             this.btnC.Name = "btnC";
             this.btnC.Size = new System.Drawing.Size(270, 29);
             this.btnC.TabIndex = 15;
@@ -203,7 +204,7 @@
             // 
             this.btnD.BackColor = System.Drawing.Color.Green;
             this.btnD.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnD.Location = new System.Drawing.Point(12, 442);
+            this.btnD.Location = new System.Drawing.Point(12, 474);
             this.btnD.Name = "btnD";
             this.btnD.Size = new System.Drawing.Size(270, 29);
             this.btnD.TabIndex = 16;
@@ -213,7 +214,7 @@
             // 
             // btnEndSimulation
             // 
-            this.btnEndSimulation.Location = new System.Drawing.Point(12, 491);
+            this.btnEndSimulation.Location = new System.Drawing.Point(12, 523);
             this.btnEndSimulation.Name = "btnEndSimulation";
             this.btnEndSimulation.Size = new System.Drawing.Size(270, 29);
             this.btnEndSimulation.TabIndex = 17;
@@ -228,7 +229,7 @@
             this.groupBox1.Controls.Add(this.rbDisable);
             this.groupBox1.Controls.Add(this.rbEnable);
             this.groupBox1.Controls.Add(this.btnEditorMode);
-            this.groupBox1.Location = new System.Drawing.Point(12, 545);
+            this.groupBox1.Location = new System.Drawing.Point(12, 577);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(270, 199);
             this.groupBox1.TabIndex = 18;
@@ -303,22 +304,22 @@
             // labelMessage
             // 
             this.labelMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelMessage.Location = new System.Drawing.Point(12, 796);
+            this.labelMessage.Location = new System.Drawing.Point(12, 818);
             this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(270, 155);
+            this.labelMessage.Size = new System.Drawing.Size(270, 103);
             this.labelMessage.TabIndex = 19;
             // 
             // panelSeats
             // 
             this.panelSeats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelSeats.Location = new System.Drawing.Point(297, 31);
+            this.panelSeats.Location = new System.Drawing.Point(353, 31);
             this.panelSeats.Name = "panelSeats";
-            this.panelSeats.Size = new System.Drawing.Size(1065, 1012);
+            this.panelSeats.Size = new System.Drawing.Size(1104, 1012);
             this.panelSeats.TabIndex = 20;
             // 
             // btnResetSimulation
             // 
-            this.btnResetSimulation.Location = new System.Drawing.Point(12, 750);
+            this.btnResetSimulation.Location = new System.Drawing.Point(12, 782);
             this.btnResetSimulation.Name = "btnResetSimulation";
             this.btnResetSimulation.Size = new System.Drawing.Size(270, 33);
             this.btnResetSimulation.TabIndex = 21;
@@ -326,11 +327,21 @@
             this.btnResetSimulation.UseVisualStyleBackColor = true;
             this.btnResetSimulation.Click += new System.EventHandler(this.btnResetSimulation_Click);
             // 
+            // btnUndo
+            // 
+            this.btnUndo.Location = new System.Drawing.Point(12, 252);
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(94, 34);
+            this.btnUndo.TabIndex = 22;
+            this.btnUndo.Text = "Undo";
+            this.btnUndo.UseVisualStyleBackColor = true;
+            // 
             // normal_mode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1490, 1055);
+            this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.btnResetSimulation);
             this.Controls.Add(this.panelSeats);
             this.Controls.Add(this.labelMessage);
@@ -392,5 +403,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel panelSeats;
         private System.Windows.Forms.Button btnResetSimulation;
+        private System.Windows.Forms.Button btnUndo;
     }
 }

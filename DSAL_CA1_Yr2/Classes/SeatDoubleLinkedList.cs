@@ -94,33 +94,48 @@ namespace DSAL_CA1_Yr2.Classes
             }//End if
         }//end of DeleteSeat
 
-        public void DeleteSeatAtBeginning(Seat pSeatData)
+        public Seat SearchLastSeat()
         {
-            if(this.Start == null)
+            if (this.Start == null)
+            {
+                return null;
+            }
+            if (this.Start.Next == null)
+            {
+                this.Start = null;
+                return null;
+            }
+
+            //the list is not empty and has more than 1 node
+            Node p = this.Start;
+            while (p.Next != null)
+            {
+                p = p.Next;
+            }//end of while
+
+            return p.Seat;
+        }
+        public void DeleteLastSeat()
+        {
+            if (this.Start == null)
             {
                 return;
             }
             if (this.Start.Next == null)
             {
-                if (this.Start.Seat == pSeatData)
-                {
-                    this.Start = null;
-                }
-                else
-                {
-                    Console.WriteLine("{0} is not found on the list", pSeatData);
-                }//end of else if
+                this.Start = null;
                 return;
-            }//End of if
-            //If node satisfies criteria is the first node,logic need to handle node
-            //deletion seperately
-            if (this.Start.Seat == pSeatData)
+            }
+
+            //the list is not empty and has more than 1 node
+            Node p = this.Start;
+            while (p.Next != null)
             {
-                this.Start = this.Start.Next;
-                this.Start.Prev = null;
-                return;
-            }//end if
-        }//End of deleteSeatAtBeginning
+                p = p.Next;
+            }//end of while
+            //when loop terminates, p should be referring to last node
+            p.Prev.Next = null;//Make the previous node as last node
+        }//end of DeleteLastNode
         public Seat SearchByRowAndColumn(int pRow,int pColumn)
         {
             Node p = this.Start;
@@ -144,5 +159,6 @@ namespace DSAL_CA1_Yr2.Classes
 
         }//end of SearchByRowAndColumn
 
+        
     }//end of SeatDoubleLinkedList
 }//end of namespace
