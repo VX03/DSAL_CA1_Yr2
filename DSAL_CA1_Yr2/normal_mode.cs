@@ -19,8 +19,10 @@ namespace DSAL_CA1_Yr2
         SeatDoubleLinkedList seatListC = new SeatDoubleLinkedList();
         SeatDoubleLinkedList seatListD = new SeatDoubleLinkedList();
 
+        
         PanelLabels panelLabels = new PanelLabels();
         int[] counterArray = { 0, 0, 0, 0 };
+        string[] bookingPersonArray = { "A", "B", "C", "D" };
         bool personA = false;
         bool personB = false;
         bool personC = false;
@@ -65,6 +67,7 @@ namespace DSAL_CA1_Yr2
             try
             {
                 Button button = (Button)sender;
+                List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
 
                 if (button.Text == "Person A Booking")
                 {
@@ -94,22 +97,38 @@ namespace DSAL_CA1_Yr2
                     personC = false;
                     personD = true;
                 }
-                
+
                 disableUponButton();
                 tbMaxSeat.Enabled = true;
+
                 trueFalseEditor(false);
                 bookSeats = true;
-                panelLabels.changeLabelColor(panelSeats);
+
+                changeLabelColorAndCanBook();
 
                 Boolean[] personArray = getPersonArray();
-                string[] bookingPersonArray = getBookingPersonArray();
-                for(int i = 0; i < personArray.Length; i++)
-                {
-                    labelMessage.Text = "Person " + bookingPersonArray[i] + " is booking now.";
-                }
+                Color[] colorArray = getColorArray();
 
+
+                for (int i = 0; i < personArray.Length; i++)
+                {
+                    if (personArray[i] == true)
+                    {
+                        foreach (Label label in labels)
+                        {
+                            SeatInfo si = (SeatInfo)label.Tag;
+                            Seat seat = seatList.SearchByRowAndColumn(si.Row, si.Column);
+                            if (seat.BookingPerson == bookingPersonArray[i])
+                            {
+                                label.BackColor = colorArray[i];
+                            }
+                            labelMessage.Text = "Person " + bookingPersonArray[i] + " is booking now.";
+                        }
+                    }//end forloop
+
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
@@ -148,36 +167,53 @@ namespace DSAL_CA1_Yr2
 
         public void labelSeat_Click(object sender, EventArgs e)
         {
-            if(bookSeats == false)
+            //get person and color Array
+            Boolean[] personArray = getPersonArray();
+            Color[] colorArray = getColorArray();
+
+            Color color = Color.White;//set color to white
+            Label label = (Label)sender;//label that is clicked
+            SeatInfo seatInfo = (SeatInfo)label.Tag;//tag label
+
+            Seat seat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column);
+            Seat rightSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column + 1);
+            Seat leftSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column - 1);
+
+            if (rbDisable.Enabled == true && rbDisable.Checked == true)
+            {
+                seat.CanBook = false;
+                label.BackColor = Color.DarkBlue;
+                return;
+            }
+            else if (rbEnable.Enabled == true && rbEnable.Checked == true)
+            {
+                seat.CanBook = true;
+                label.BackColor = Color.White;
+                return;
+            }
+
+            if (bookSeats == false)
             {
                 MessageBox.Show("Click on person button");
                 return;
             }
             try
             {
-                    Color color = Color.White;//set color to white
-                    Label label = (Label)sender;//label that is clicked
-                    SeatInfo seatInfo = (SeatInfo)label.Tag;//tag label
-
-                    //get person and color Array
-                    Boolean[] personArray = getPersonArray();
-                    Color[] colorArray = getColorArray();
-                    string[] bookingPersonArray = getBookingPersonArray();
-
-                    Seat seat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column);
-                    Seat rightSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column + 1);
-                    Seat leftSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column - 1);
-
-                    int maxSeat = int.Parse(tbMaxSeat.Text);
+                int maxSeat = int.Parse(tbMaxSeat.Text);
 
                     tbMaxSeat.Enabled = false;
 
                     for (int i = 0; i < personArray.Length; i++)
                     {
+
                         if (personArray[i] == true)
                         {
                             color = colorArray[i];//set color
-
+                            if(maxSeat < counterArray[i])
+                            {
+                                MessageBox.Show("Re-Enter max seats again");
+                                return;
+                            }
                             //chose seat
                             if (label.BackColor == Color.White)
                             {
@@ -373,11 +409,6 @@ namespace DSAL_CA1_Yr2
             return colorArray;
         }
 
-        public string[] getBookingPersonArray()
-        {
-            string[] bookingPersonArray = { "A", "B", "C", "D" };
-            return bookingPersonArray;
-        }
         public void disableUponButton()
         {
             tbNoOfRow.Enabled = false;
@@ -424,6 +455,75 @@ namespace DSAL_CA1_Yr2
             btnEnableAll.Enabled = input;
             btnDisableAll.Enabled = input;
             btnEditorMode.Enabled = input;
+        }
+
+        private void btnEnableDisableAll_Click(object sender, EventArgs e)
+        {
+            bool enableDisable = false;
+            Button button = (Button)sender;
+
+            if(button.Text == "Enable All")
+            {
+                enableDisable = true;
+            }
+
+            List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
+
+            foreach (Label label in labels)
+            {
+                SeatInfo si = (SeatInfo)label.Tag;
+                Seat seat = seatList.SearchByRowAndColumn(si.Row, si.Column);
+                if (enableDisable)
+                { 
+                    seat.CanBook = true;
+                    label.BackColor = Color.White;
+                }
+                else
+                {
+                    seat.CanBook = false;
+                    label.BackColor = Color.DarkBlue;
+                }
+            }
+        }//End of btnEnableDisableAll_Click
+
+        public void changeLabelColorAndCanBook()
+        {
+            List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
+            foreach (Label label in labels)
+            {
+                SeatInfo si = (SeatInfo)label.Tag;
+                Seat seat = seatList.SearchByRowAndColumn(si.Row, si.Column);
+
+                if (label.BackColor == Color.LightBlue)
+                {
+                    seat.CanBook = true;
+                    label.BackColor = Color.White;
+                }
+                else if (label.BackColor != Color.White)
+                {
+                    seat.CanBook = false;
+                    label.BackColor = Color.DarkGray;
+                }
+            }
+        }//end of changeLabelColorAndCanBook
+
+        private void btnEndSimulation_Click(object sender, EventArgs e)
+        {
+            btnA.Enabled = false;
+            btnB.Enabled = false;
+            btnC.Enabled = false;
+            btnD.Enabled = false;
+            List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
+            foreach(Label label in labels)
+            {
+                label.Click -= new EventHandler(labelSeat_Click);
+                label.Click += new EventHandler(changeLabelEventHandler);
+            }
+        }
+
+        private void changeLabelEventHandler(object sender, EventArgs e)
+        {
+            MessageBox.Show("Simulation has ended.");
         }
     }//end of normal_mode
 }

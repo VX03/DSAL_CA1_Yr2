@@ -92,7 +92,35 @@ namespace DSAL_CA1_Yr2.Classes
                     Console.WriteLine("{0} is not found on the list", pSeatData);
                 }
             }//End if
-        }//end of DeleteNode
+        }//end of DeleteSeat
+
+        public void DeleteSeatAtBeginning(Seat pSeatData)
+        {
+            if(this.Start == null)
+            {
+                return;
+            }
+            if (this.Start.Next == null)
+            {
+                if (this.Start.Seat == pSeatData)
+                {
+                    this.Start = null;
+                }
+                else
+                {
+                    Console.WriteLine("{0} is not found on the list", pSeatData);
+                }//end of else if
+                return;
+            }//End of if
+            //If node satisfies criteria is the first node,logic need to handle node
+            //deletion seperately
+            if (this.Start.Seat == pSeatData)
+            {
+                this.Start = this.Start.Next;
+                this.Start.Prev = null;
+                return;
+            }//end if
+        }//End of deleteSeatAtBeginning
         public Seat SearchByRowAndColumn(int pRow,int pColumn)
         {
             Node p = this.Start;

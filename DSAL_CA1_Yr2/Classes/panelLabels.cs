@@ -17,21 +17,6 @@ namespace DSAL_CA1_Yr2.Classes
             int[] intArray = Array.ConvertAll(stringArray, s => int.Parse(s));
             return intArray;
         }
-        public void changeLabelColor(Panel panelSeats)
-        {
-            List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
-            foreach (Label label in labels)
-            {
-                if (label.BackColor == Color.LightBlue)
-                {
-                    label.BackColor = Color.White;
-                }
-                if(label.BackColor != Color.White)
-                {
-                    label.BackColor = Color.DarkGray;
-                }
-            }
-        }//end of changeLabelColor
 
 
     }

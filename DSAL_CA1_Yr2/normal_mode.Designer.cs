@@ -219,6 +219,7 @@
             this.btnEndSimulation.TabIndex = 17;
             this.btnEndSimulation.Text = "End Simulation";
             this.btnEndSimulation.UseVisualStyleBackColor = true;
+            this.btnEndSimulation.Click += new System.EventHandler(this.btnEndSimulation_Click);
             // 
             // groupBox1
             // 
@@ -243,6 +244,7 @@
             this.btnDisableAll.TabIndex = 23;
             this.btnDisableAll.Text = "Disable All";
             this.btnDisableAll.UseVisualStyleBackColor = true;
+            this.btnDisableAll.Click += new System.EventHandler(this.btnEnableDisableAll_Click);
             // 
             // btnEnableAll
             // 
@@ -253,6 +255,7 @@
             this.btnEnableAll.TabIndex = 22;
             this.btnEnableAll.Text = "Enable All";
             this.btnEnableAll.UseVisualStyleBackColor = true;
+            this.btnEnableAll.Click += new System.EventHandler(this.btnEnableDisableAll_Click);
             // 
             // rbDisable
             // 
