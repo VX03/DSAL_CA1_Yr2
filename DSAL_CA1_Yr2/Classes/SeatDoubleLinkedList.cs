@@ -34,6 +34,31 @@ namespace DSAL_CA1_Yr2.Classes
             newNode.Prev = p;
         }//End of InsertAtEnd
 
+        public void DeleteAllSeat()
+        {
+            if (this.Start == null)
+            {
+                return;
+            }//end of if
+            if (this.Start.Next == null)
+            {
+                this.Start = null;
+                return;
+            }//End of if
+            Node p = this.Start.Next;
+
+            while(p.Next != null)
+            {
+                p = p.Next;
+                p.Prev = null;
+            }
+            if (this.Start.Next == null)
+            {
+                this.Start = null;
+                return;
+            }//End of if
+        }
+
         public void DeleteSeat(Seat pSeatData)
         {
             if (this.Start == null)

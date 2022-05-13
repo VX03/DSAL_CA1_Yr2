@@ -19,8 +19,8 @@ namespace DSAL_CA1_Yr2
         SeatDoubleLinkedList seatListC = new SeatDoubleLinkedList();
         SeatDoubleLinkedList seatListD = new SeatDoubleLinkedList();
 
-        
         PanelLabels panelLabels = new PanelLabels();
+
         int[] counterArray = { 0, 0, 0, 0 };
         string[] bookingPersonArray = { "A", "B", "C", "D" };
         bool personA = false;
@@ -35,24 +35,6 @@ namespace DSAL_CA1_Yr2
 
         private void normal_mode_Load(object sender, EventArgs e)
         {
-            /*
-            Seat s = new Seat();
-            s.Row = 1;
-            s.Column = 1;
-            seatList.InsertAtEnd(s);
-            
-            s = new Seat();
-            s.Row = 1;
-            s.Column = 2;
-            seatList.InsertAtEnd(s);
-
-            s = new Seat();
-            s.Row = 1;
-            s.Column = 3;
-            seatList.InsertAtEnd(s);
-
-            labelMessage.Text = "DoubleLinkedList has been built";
-            */
         }//end of normal_mode_load
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -166,8 +148,7 @@ namespace DSAL_CA1_Yr2
         public void labelSeat_Click(object sender, EventArgs e)
         {
             //get person and color Array
-            Boolean[] personArray = getPersonArray();
-            Color[] colorArray = getColorArray();
+            PanelLabels[] pl = getPanelLabelsArray();
             SeatDoubleLinkedList[] doubleLinkedListArray = {seatListA,seatListB,seatListC,seatListD};
 
             Color color = Color.White;//set color to white
@@ -202,12 +183,12 @@ namespace DSAL_CA1_Yr2
 
                     tbMaxSeat.Enabled = false;
 
-                    for (int i = 0; i < personArray.Length; i++)
+                    for (int i = 0; i < pl.Length; i++)
                     {
 
-                        if (personArray[i] == true)
+                        if (pl[i].PersonChosen == true)
                         {
-                            color = colorArray[i];//set color
+                            color = pl[i].Color;//set color
                             if(maxSeat < counterArray[i])
                             {
                                 MessageBox.Show("Re-Enter max seats again");
@@ -284,7 +265,7 @@ namespace DSAL_CA1_Yr2
                                  }//end else if
 
                                      //there is a different person seating at the side
-                                else if (!(leftSeat.BookingPerson == bookingPersonArray[i] || rightSeat.BookingPerson == bookingPersonArray[i]))
+                                else if (!(leftSeat.BookingPerson == bookingPersonArray[i] && rightSeat.BookingPerson == bookingPersonArray[i]))
                                 {
                                     MessageBox.Show("Unable to book seat");
                                     return;
@@ -304,7 +285,7 @@ namespace DSAL_CA1_Yr2
                         }//end if
 
                         //delete seat
-                        else if (label.BackColor == colorArray[i])
+                        else if (label.BackColor == pl[i].Color)
                         {
                             //left or right seat is null
                             if (leftSeat == null || rightSeat == null)
@@ -425,6 +406,15 @@ namespace DSAL_CA1_Yr2
             return colorArray;
         }//end of getColorArray
 
+        public PanelLabels[] getPanelLabelsArray()
+        {
+            PanelLabels[] panelLabelsArray = { new PanelLabels {Counter = counterArray[0], PersonChosen = getPersonArray()[0],Color = getColorArray()[0]},
+                                              new PanelLabels {Counter = counterArray[1], PersonChosen = getPersonArray()[1],Color = getColorArray()[1]},
+                                              new PanelLabels {Counter = counterArray[2], PersonChosen = getPersonArray()[2],Color = getColorArray()[2]},
+                                              new PanelLabels {Counter = counterArray[3], PersonChosen = getPersonArray()[3],Color = getColorArray()[3]},
+                                              };
+            return panelLabelsArray;
+        }
         public void disableRowAndColUponButton()
         {
             tbNoOfRow.Enabled = false;
@@ -439,6 +429,11 @@ namespace DSAL_CA1_Yr2
 
         private void btnResetSimulation_Click(object sender, EventArgs e)
         {
+            SeatDoubleLinkedList[] seatDoubleLinkedList = {seatListA,seatListB,seatListC,seatListD};
+            foreach (SeatDoubleLinkedList seatDoubleLinkedListItem in seatDoubleLinkedList)
+            {
+                seatDoubleLinkedListItem.DeleteAllSeat();
+            }
             panelSeats.Controls.Clear();
             generate();
 
@@ -450,6 +445,8 @@ namespace DSAL_CA1_Yr2
             btnEditorMode.Enabled = true;
             btnEditorMode.Text = "Enter Editor Mode";
             labelMessage.Text = "Simulation has resetted";
+
+            
         }//end of btnResetSimulation_Click
 
         private void btnEditorMode_Click(object sender, EventArgs e)
@@ -556,6 +553,17 @@ namespace DSAL_CA1_Yr2
             MessageBox.Show("Simulation has ended.");
         }//end of endSimulationLabelEventHandler
 
-        
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            List<Seat> seats = null;
+            List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
+            foreach (Label label in labels)
+            {
+                SeatInfo si = (SeatInfo)label.Tag;
+                Seat seat = seatList.SearchByRowAndColumn(si.Row, si.Column);
+                seats.Add(seat);
+            }
+
+        }
     }//end of normal_mode
 }

@@ -7,9 +7,30 @@ using System.Windows.Forms;
 
 namespace DSAL_CA1_Yr2.Classes
 {
-    class PanelLabels
+    public class PanelLabels
     {
-        SeatDoubleLinkedList seatList = new SeatDoubleLinkedList();
+        int counter = 0;
+        bool personChosen = false;
+        Color color;
+
+        public int Counter
+        {
+            get { return counter; }
+            set { counter = value; }
+        }
+
+        public bool PersonChosen
+        {
+            get { return personChosen; }
+            set { personChosen = value; }
+        }
+
+        public Color Color
+        {
+            get { return color; }
+            set { color = value; }
+        }
+
 
         public int[] convertStringToInt(string split, TextBox s)
         {
