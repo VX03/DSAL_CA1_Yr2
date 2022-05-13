@@ -56,6 +56,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panelSeats = new System.Windows.Forms.Panel();
             this.btnResetSimulation = new System.Windows.Forms.Button();
+            this.btnUndo = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -327,11 +328,22 @@
             this.btnResetSimulation.UseVisualStyleBackColor = true;
             this.btnResetSimulation.Click += new System.EventHandler(this.btnResetSimulation_Click);
             // 
+            // btnUndo
+            // 
+            this.btnUndo.Location = new System.Drawing.Point(21, 253);
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(94, 29);
+            this.btnUndo.TabIndex = 22;
+            this.btnUndo.Text = "Undo";
+            this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
+            // 
             // normal_mode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1490, 1055);
+            this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.btnResetSimulation);
             this.Controls.Add(this.panelSeats);
             this.Controls.Add(this.labelMessage);
@@ -393,5 +405,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel panelSeats;
         private System.Windows.Forms.Button btnResetSimulation;
+        private System.Windows.Forms.Button btnUndo;
     }
 }

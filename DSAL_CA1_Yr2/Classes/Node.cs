@@ -4,7 +4,9 @@ using System.Text;
 
 namespace DSAL_CA1_Yr2.Classes
 {
-    class Node
+    [Serializable]
+    public class Node
+        
     {
         private Node _prev;
         private Seat _seat;

@@ -1,12 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 namespace DSAL_CA1_Yr2.Classes
 {
-    class SeatDoubleLinkedList
+    public class SeatDoubleLinkedList
     {
         //Make sure that "start" refers to first node of list
+        int counter = 0;
+        bool personChosen = false;
+        Color color;
+
+        public int Counter
+        {
+            get { return counter; }
+            set { counter = value; }
+        }
+
+        public bool PersonChosen
+        {
+            get { return personChosen; }
+            set { personChosen = value; }
+        }
 
         public Node Start { get; set; }//End of Start
 
@@ -127,8 +147,7 @@ namespace DSAL_CA1_Yr2.Classes
             }
             if (this.Start.Next == null)
             {
-                this.Start = null;
-                return null;
+                return this.Start.Seat;
             }
 
             //the list is not empty and has more than 1 node
@@ -184,6 +203,17 @@ namespace DSAL_CA1_Yr2.Classes
 
         }//end of SearchByRowAndColumn
 
-        
+        public void binarySaveToFile(SeatDoubleLinkedList[] seatListArray)
+        {
+
+                string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.dat";
+
+                BinaryFormatter bf = new BinaryFormatter();
+                Stream stream = new FileStream(filepath, FileMode.OpenOrCreate, FileAccess.Write);
+
+                bf.Serialize(stream, seatListArray);
+                stream.Close();
+
+        }
     }//end of SeatDoubleLinkedList
 }//end of namespace

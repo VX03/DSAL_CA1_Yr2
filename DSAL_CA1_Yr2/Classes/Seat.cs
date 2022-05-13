@@ -4,12 +4,13 @@ using System.Text;
 
 namespace DSAL_CA1_Yr2.Classes
 {
-    class Seat
+    [Serializable]
+    public class Seat
     {
         //Whether the seat has been selected
         private bool _bookStatus = false;
         //Seat is bookable or not
-        private bool _canBook = false;
+        private bool _canBook = true;
         //the _row field is 2 if obj modelling a seat at row "B"
         private int _row;
         //the _column field is 3 if obj modelling a seat at col 3
