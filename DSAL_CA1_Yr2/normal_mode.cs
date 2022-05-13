@@ -14,7 +14,7 @@ namespace DSAL_CA1_Yr2
     public partial class normal_mode : Form
     {
         SeatDoubleLinkedList seatList = new SeatDoubleLinkedList();
-        SeatDoubleLinkedList[] seatListArray = { new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
+        List <SeatDoubleLinkedList> seatListArray = new List<SeatDoubleLinkedList>{ new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
                                              new SeatDoubleLinkedList { Counter = 0, PersonChosen = false },
                                              new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
                                              new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
@@ -51,7 +51,7 @@ namespace DSAL_CA1_Yr2
 
                 if (button.Text == "Person A Booking")
                 {
-                    for(int i = 0; i < seatListArray.Length-1; i++)
+                    for(int i = 0; i < seatListArray.Count-1; i++)
                     {
                         if(i == 0)
                         {
@@ -65,7 +65,7 @@ namespace DSAL_CA1_Yr2
                 }
                 else if (button.Text == "Person B Booking")
                 {
-                    for (int i = 0; i < seatListArray.Length - 1; i++)
+                    for (int i = 0; i < seatListArray.Count-1 ; i++)
                     {
                         if (i == 1)
                         {
@@ -79,7 +79,7 @@ namespace DSAL_CA1_Yr2
                 }
                 else if (button.Text == "Person C Booking")
                 {
-                    for (int i = 0; i < seatListArray.Length - 1; i++)
+                    for (int i = 0; i < seatListArray.Count-1; i++)
                     {
                         if (i == 2)
                         {
@@ -93,7 +93,7 @@ namespace DSAL_CA1_Yr2
                 }
                 else
                 {
-                    for (int i = 0; i < seatListArray.Length - 1; i++)
+                    for (int i = 0; i < seatListArray.Count-1; i++)
                     {
                         if (i == 3)
                         {
@@ -205,7 +205,7 @@ namespace DSAL_CA1_Yr2
 
                     tbMaxSeat.Enabled = false;
 
-                    for (int i = 0; i < seatListArray.Length-1; i++)
+                    for (int i = 0; i < seatListArray.Count-1; i++)
                     {
 
                         if (seatListArray[i].PersonChosen == true)
@@ -451,7 +451,7 @@ namespace DSAL_CA1_Yr2
                     seat.BookingPerson = null;
                 }
             }
-            for(int i = 0; i < seatListArray.Length-1; i++)
+            for(int i = 0; i < seatListArray.Count-1; i++)
             {
                 seatListArray[i].Counter = 0;
             }
@@ -550,6 +550,7 @@ namespace DSAL_CA1_Yr2
                 else if (label.BackColor == Color.DarkBlue)
                 {
                     seat.CanBook = false;
+
                 }
             }
         }//end of changeLabelColorAndCanBook
@@ -602,7 +603,7 @@ namespace DSAL_CA1_Yr2
         {
 
             List<Label> labels = panelSeats.Controls.OfType <Label>().ToList();
-            for (int i = 0; i < seatListArray.Length-1; i++)
+            for (int i = 0; i < seatListArray.Count-1; i++)
             {
                 if(seatListArray[i].PersonChosen == true)
                 {

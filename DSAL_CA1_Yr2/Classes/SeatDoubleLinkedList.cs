@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace DSAL_CA1_Yr2.Classes
 {
+    [Serializable]
     public class SeatDoubleLinkedList
     {
         //Make sure that "start" refers to first node of list
@@ -203,7 +204,7 @@ namespace DSAL_CA1_Yr2.Classes
 
         }//end of SearchByRowAndColumn
 
-        public void binarySaveToFile(SeatDoubleLinkedList[] seatListArray)
+        public void binarySaveToFile(List<SeatDoubleLinkedList> seatListArray)
         {
 
                 string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.dat";
