@@ -14,8 +14,8 @@ namespace DSAL_CA1_Yr2.Classes
     {
         //Make sure that "start" refers to first node of list
         int counter = 0;
+        string bookingPerson;
         bool personChosen = false;
-        Color color;
 
         public int Counter
         {
@@ -27,6 +27,12 @@ namespace DSAL_CA1_Yr2.Classes
         {
             get { return personChosen; }
             set { personChosen = value; }
+        }
+
+        public string BookingPerson
+        {
+            get { return bookingPerson; }
+            set { bookingPerson = value; }
         }
 
         public Node Start { get; set; }//End of Start
@@ -215,6 +221,50 @@ namespace DSAL_CA1_Yr2.Classes
                 bf.Serialize(stream, seatListArray);
                 stream.Close();
 
-        }
+        }//end of binarySaveToFile
+
+        public void textSaveToFile(string s)
+        {
+            string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.txt";
+
+            TextWriter tw = new StreamWriter(filepath);
+            tw.Write(s);
+            tw.Close();
+        }//end of textSaveToFile
+
+        public List<SeatDoubleLinkedList> binaryReadFromFile()
+        {
+            //The logic in this method is de-serialization process
+            //De-serializarion is the process of recovering an object from a storage
+            string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.dat";
+            Stream stream = new FileStream(@filepath, FileMode.OpenOrCreate, FileAccess.Read);
+            BinaryFormatter bf = new BinaryFormatter();
+            List<SeatDoubleLinkedList> list = null ;
+            if (stream.Length != 0)
+            {
+                list = (List<SeatDoubleLinkedList>)bf.Deserialize(stream);
+            }
+            stream.Close();
+
+            return list;
+        }//end of binaryReadFromFile
+
+        public List<string> textReadFromFile()
+        {
+            string line;
+            List<string> list = new List<string>();
+            string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.txt";
+            TextReader tr = new StreamReader(filepath);
+
+            line = tr.ReadLine();
+            do
+            {
+                list.Add(line);
+                line = tr.ReadLine();
+            } while (line != null);
+            tr.Close();
+
+            return list;
+        }//end of textReadFromFile
     }//end of SeatDoubleLinkedList
 }//end of namespace
