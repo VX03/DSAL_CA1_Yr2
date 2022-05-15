@@ -14,7 +14,6 @@ namespace DSAL_CA1_Yr2.Classes
     {
         //Make sure that "start" refers to first node of list
         int counter = 0;
-        string bookingPerson;
         bool personChosen = false;
 
         public int Counter
@@ -27,12 +26,6 @@ namespace DSAL_CA1_Yr2.Classes
         {
             get { return personChosen; }
             set { personChosen = value; }
-        }
-
-        public string BookingPerson
-        {
-            get { return bookingPerson; }
-            set { bookingPerson = value; }
         }
 
         public Node Start { get; set; }//End of Start
@@ -234,37 +227,52 @@ namespace DSAL_CA1_Yr2.Classes
 
         public List<SeatDoubleLinkedList> binaryReadFromFile()
         {
-            //The logic in this method is de-serialization process
-            //De-serializarion is the process of recovering an object from a storage
-            string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.dat";
-            Stream stream = new FileStream(@filepath, FileMode.OpenOrCreate, FileAccess.Read);
-            BinaryFormatter bf = new BinaryFormatter();
-            List<SeatDoubleLinkedList> list = null ;
-            if (stream.Length != 0)
+            try
             {
-                list = (List<SeatDoubleLinkedList>)bf.Deserialize(stream);
-            }
-            stream.Close();
+                //The logic in this method is de-serialization process
+                //De-serializarion is the process of recovering an object from a storage
+                string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.dat";
+                Stream stream = new FileStream(@filepath, FileMode.OpenOrCreate, FileAccess.Read);
+                BinaryFormatter bf = new BinaryFormatter();
+                List<SeatDoubleLinkedList> list = null;
+                if (stream.Length != 0)
+                {
+                    list = (List<SeatDoubleLinkedList>)bf.Deserialize(stream);
+                }
+                stream.Close();
 
-            return list;
+                return list;
+            }catch (FileNotFoundException ex)
+            {
+                MessageBox.Show("Unable to find file");
+                return null;
+            }
         }//end of binaryReadFromFile
 
         public List<string> textReadFromFile()
         {
-            string line;
-            List<string> list = new List<string>();
-            string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.txt";
-            TextReader tr = new StreamReader(filepath);
-
-            line = tr.ReadLine();
-            do
+            try
             {
-                list.Add(line);
-                line = tr.ReadLine();
-            } while (line != null);
-            tr.Close();
+                string line;
+                List<string> list = new List<string>();
+                string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.txt";
+                TextReader tr = new StreamReader(filepath);
 
-            return list;
+                line = tr.ReadLine();
+                do
+                {
+                    list.Add(line);
+                    line = tr.ReadLine();
+                } while (line != null);
+                tr.Close();
+
+                return list;
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show("Unable to find file");
+                return null;
+            }
         }//end of textReadFromFile
     }//end of SeatDoubleLinkedList
 }//end of namespace

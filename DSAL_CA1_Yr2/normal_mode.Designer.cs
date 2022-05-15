@@ -57,7 +57,9 @@
             this.panelSeats = new System.Windows.Forms.Panel();
             this.btnResetSimulation = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
+            this.panelSeats.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSave
@@ -314,6 +316,7 @@
             // panelSeats
             // 
             this.panelSeats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSeats.Controls.Add(this.textBox1);
             this.panelSeats.Location = new System.Drawing.Point(302, 31);
             this.panelSeats.Name = "panelSeats";
             this.panelSeats.Size = new System.Drawing.Size(1155, 1012);
@@ -338,6 +341,18 @@
             this.btnUndo.Text = "Undo";
             this.btnUndo.UseVisualStyleBackColor = true;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.textBox1.Location = new System.Drawing.Point(190, 1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(664, 27);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "Screen";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // normal_mode
             // 
@@ -372,6 +387,8 @@
             this.Load += new System.EventHandler(this.normal_mode_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panelSeats.ResumeLayout(false);
+            this.panelSeats.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -407,5 +424,6 @@
         private System.Windows.Forms.Panel panelSeats;
         private System.Windows.Forms.Button btnResetSimulation;
         private System.Windows.Forms.Button btnUndo;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
