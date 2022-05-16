@@ -12,22 +12,26 @@ namespace DSAL_CA1_Yr2
 {
     public partial class safe_distance_mode : Form
     {
-        SeatDoubleLinkedList seatList = new SeatDoubleLinkedList();
-        List<SeatDoubleLinkedList> seatListArray = new List<SeatDoubleLinkedList>{ new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
+        private SeatDoubleLinkedList seatList = new SeatDoubleLinkedList();
+        private List<SeatDoubleLinkedList> seatListArray = new List<SeatDoubleLinkedList>{ new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
                                              new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
                                              new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
                                              new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
                                              new SeatDoubleLinkedList()
                                             };
 
-        string[] bookingPersonArray = { "A", "B", "C", "D" };
-        bool bookSeats = false;
+        private string[] bookingPersonArray = { "A", "B", "C", "D" };
+        private bool bookSeats = false;
 
         public safe_distance_mode()
         {
             InitializeComponent();
         }
 
+        private void safe_distance_mode_FormClosing(object sender, EventArgs e)
+        {
+            ((ParentForm)this.MdiParent).safeDistanceMode = null;
+        }
         private void btnSetupLayout_Click(object sender, EventArgs e)
         {
             generate();
@@ -427,8 +431,8 @@ namespace DSAL_CA1_Yr2
         {
             try
             {
-                List<SeatDoubleLinkedList> linkedList = seatList.binaryReadFromFile();
-                List<string> stringList = seatList.textReadFromFile();
+                List<SeatDoubleLinkedList> linkedList = seatList.binaryReadFromFile("safeMode.dat");
+                List<string> stringList = seatList.textReadFromFile("safeMode.txt");
                 if (linkedList == null || stringList == null)
                 {
                     MessageBox.Show("Unable to load file");
@@ -604,11 +608,11 @@ namespace DSAL_CA1_Yr2
                     }
                 }
 
-                seatList.binarySaveToFile(seatListArray);
+                seatList.binarySaveToFile(seatListArray,"safeMode.dat");
 
 
                 string s = tbNoOfRow.Text + "\n" + tbSeatsPerRow.Text + "\n" + tbRowDivider.Text + "\n" + tbColumnDivider.Text + "\n" + tbMaxSeat.Text;
-                seatList.textSaveToFile(s);
+                seatList.textSaveToFile(s,"safeMode.txt");
 
                 MessageBox.Show("Saved to file");
             }

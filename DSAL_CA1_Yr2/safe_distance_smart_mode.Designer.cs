@@ -43,8 +43,17 @@
             this.numRow = new System.Windows.Forms.NumericUpDown();
             this.numCol = new System.Windows.Forms.NumericUpDown();
             this.panelSeats = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.rbEnable = new System.Windows.Forms.RadioButton();
+            this.Disable = new System.Windows.Forms.RadioButton();
+            this.btnEnableAll = new System.Windows.Forms.Button();
+            this.tnDisableAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numRow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCol)).BeginInit();
+            this.panelSeats.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnA
@@ -60,7 +69,7 @@
             // labelMessage
             // 
             this.labelMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelMessage.Location = new System.Drawing.Point(43, 454);
+            this.labelMessage.Location = new System.Drawing.Point(43, 658);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(270, 155);
             this.labelMessage.TabIndex = 62;
@@ -115,6 +124,7 @@
             this.btnSeatLayout.TabIndex = 53;
             this.btnSeatLayout.Text = "Setup Cinema Seat Layout";
             this.btnSeatLayout.UseVisualStyleBackColor = true;
+            this.btnSeatLayout.Click += new System.EventHandler(this.btnSeatLayout_Click);
             // 
             // label2
             // 
@@ -169,16 +179,97 @@
             // panelSeats
             // 
             this.panelSeats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSeats.Controls.Add(this.textBox1);
             this.panelSeats.Location = new System.Drawing.Point(319, 12);
             this.panelSeats.Name = "panelSeats";
             this.panelSeats.Size = new System.Drawing.Size(1042, 1031);
             this.panelSeats.TabIndex = 66;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.textBox1.Location = new System.Drawing.Point(283, 5);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(573, 27);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "Screen";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tnDisableAll);
+            this.groupBox1.Controls.Add(this.btnEnableAll);
+            this.groupBox1.Controls.Add(this.Disable);
+            this.groupBox1.Controls.Add(this.rbEnable);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Location = new System.Drawing.Point(52, 439);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(250, 195);
+            this.groupBox1.TabIndex = 67;
+            this.groupBox1.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(28, 26);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(191, 29);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Enter Editor Mode";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // rbEnable
+            // 
+            this.rbEnable.AutoSize = true;
+            this.rbEnable.Enabled = false;
+            this.rbEnable.Location = new System.Drawing.Point(42, 73);
+            this.rbEnable.Name = "rbEnable";
+            this.rbEnable.Size = new System.Drawing.Size(75, 24);
+            this.rbEnable.TabIndex = 1;
+            this.rbEnable.TabStop = true;
+            this.rbEnable.Text = "Enable";
+            this.rbEnable.UseVisualStyleBackColor = true;
+            // 
+            // Disable
+            // 
+            this.Disable.AutoSize = true;
+            this.Disable.Enabled = false;
+            this.Disable.Location = new System.Drawing.Point(140, 73);
+            this.Disable.Name = "Disable";
+            this.Disable.Size = new System.Drawing.Size(80, 24);
+            this.Disable.TabIndex = 2;
+            this.Disable.TabStop = true;
+            this.Disable.Text = "Disable";
+            this.Disable.UseVisualStyleBackColor = true;
+            // 
+            // btnEnableAll
+            // 
+            this.btnEnableAll.Enabled = false;
+            this.btnEnableAll.Location = new System.Drawing.Point(17, 120);
+            this.btnEnableAll.Name = "btnEnableAll";
+            this.btnEnableAll.Size = new System.Drawing.Size(91, 29);
+            this.btnEnableAll.TabIndex = 3;
+            this.btnEnableAll.Text = "Enable All";
+            this.btnEnableAll.UseVisualStyleBackColor = true;
+            // 
+            // tnDisableAll
+            // 
+            this.tnDisableAll.Enabled = false;
+            this.tnDisableAll.Location = new System.Drawing.Point(140, 120);
+            this.tnDisableAll.Name = "tnDisableAll";
+            this.tnDisableAll.Size = new System.Drawing.Size(91, 29);
+            this.tnDisableAll.TabIndex = 4;
+            this.tnDisableAll.Text = "Disable All";
+            this.tnDisableAll.UseVisualStyleBackColor = true;
             // 
             // safe_distance_smart_mode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 1055);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panelSeats);
             this.Controls.Add(this.numCol);
             this.Controls.Add(this.numRow);
@@ -197,6 +288,10 @@
             this.Text = "safe_distance_smart_mode";
             ((System.ComponentModel.ISupportInitialize)(this.numRow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCol)).EndInit();
+            this.panelSeats.ResumeLayout(false);
+            this.panelSeats.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,5 +314,12 @@
         private System.Windows.Forms.NumericUpDown numRow;
         private System.Windows.Forms.NumericUpDown numCol;
         private System.Windows.Forms.Panel panelSeats;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button tnDisableAll;
+        private System.Windows.Forms.Button btnEnableAll;
+        private System.Windows.Forms.RadioButton Disable;
+        private System.Windows.Forms.RadioButton rbEnable;
+        private System.Windows.Forms.Button button1;
     }
 }

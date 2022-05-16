@@ -13,8 +13,8 @@ namespace DSAL_CA1_Yr2
 {
     public partial class normal_mode : Form
     {
-        SeatDoubleLinkedList seatList = new SeatDoubleLinkedList();
-        List <SeatDoubleLinkedList> seatListArray = new List<SeatDoubleLinkedList>{ new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
+        private SeatDoubleLinkedList seatList = new SeatDoubleLinkedList();
+        private List <SeatDoubleLinkedList> seatListArray = new List<SeatDoubleLinkedList>{ new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
                                              new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
                                              new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
                                              new SeatDoubleLinkedList { Counter = 0, PersonChosen = false},
@@ -34,6 +34,10 @@ namespace DSAL_CA1_Yr2
             
         }//end of normal_mode_load
 
+        private void normal_mode_FormClosing(object sender, EventArgs e)
+        {
+            ((ParentForm)this.MdiParent).normalMode = null;
+        }
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             generate();
@@ -194,7 +198,7 @@ namespace DSAL_CA1_Yr2
 
             if (bookSeats == false)
             {
-                MessageBox.Show("Click on person button");
+                MessageBox.Show("Click on Person button");
                 return;
             }
 
@@ -228,7 +232,7 @@ namespace DSAL_CA1_Yr2
                                     //there is a different person seating at the side
                                     if (!((leftSeat != null && leftSeat.BookingPerson == bookingPersonArray[i]) || (rightSeat != null && rightSeat.BookingPerson == bookingPersonArray[i]) || seatListArray[i].Counter == 0))
                                     {
-                                        MessageBox.Show("Unable to book seat!!!");
+                                        MessageBox.Show("Unable to book seat when the seat beside is booked by another person");
                                         return;
                                     }
                                     //none chosen
@@ -254,7 +258,7 @@ namespace DSAL_CA1_Yr2
                                     }//end else if 
                                     else if (!(leftSeat != null && leftSeat.BookingPerson == bookingPersonArray[i]) || (rightSeat != null && rightSeat.BookingPerson == bookingPersonArray[i]))
                                     {
-                                        MessageBox.Show("Unable to choose seat");
+                                        MessageBox.Show("Unable to book seat when the seat beside is booked by another");
                                         return;
                                     }
                                     else
@@ -289,7 +293,7 @@ namespace DSAL_CA1_Yr2
                                      //there is a different person seating at the side
                                 else if (!(leftSeat.BookingPerson == bookingPersonArray[i] && rightSeat.BookingPerson == bookingPersonArray[i]))
                                 {
-                                    MessageBox.Show("Unable to book seat");
+                                    MessageBox.Show("Unable to book seat when the seat beside is booked by another");
                                     return;
                                 }
                                 else
@@ -333,7 +337,7 @@ namespace DSAL_CA1_Yr2
                         }//end else if
                         else
                         {
-                            MessageBox.Show("Unable to Choose seat");
+                            MessageBox.Show("Unable to Choose seat when the seat beside is booked by another person");
                         }
 
                         }//end if
@@ -471,7 +475,7 @@ namespace DSAL_CA1_Yr2
             rbEnable.Checked = false;
             btnEditorMode.Enabled = true;
             btnEditorMode.Text = "Enter Editor Mode";
-            labelMessage.Text = "Simulation has resetted";
+            MessageBox.Show("Simulation has resetted");
 
             
         }//end of btnResetSimulation_Click
@@ -617,11 +621,11 @@ namespace DSAL_CA1_Yr2
                     }
                 }
 
-                seatList.binarySaveToFile(seatListArray);
+                seatList.binarySaveToFile(seatListArray,"normalMode.dat");
 
 
                 string s = tbNoOfRow.Text + "\n" + tbSeatsPerRow.Text + "\n" + tbRowDivider.Text + "\n" + tbColumnDivider.Text + "\n" + tbMaxSeat.Text;
-                seatList.textSaveToFile(s);
+                seatList.textSaveToFile(s,"normalMode.txt");
 
                 MessageBox.Show("Saved to file");
             }
@@ -663,8 +667,8 @@ namespace DSAL_CA1_Yr2
         {
             try
             {
-                List<SeatDoubleLinkedList> linkedList = seatList.binaryReadFromFile();
-                List<string> stringList = seatList.textReadFromFile();
+                List<SeatDoubleLinkedList> linkedList = seatList.binaryReadFromFile("normalMode.dat");
+                List<string> stringList = seatList.textReadFromFile("normalMode.txt");
                 if(linkedList == null || stringList == null)
                 {
                     MessageBox.Show("Unable to load file");
@@ -875,6 +879,6 @@ namespace DSAL_CA1_Yr2
             }
         }//end of delSeatandLabel
 
-
+        
     }//end of normal_mode
 }

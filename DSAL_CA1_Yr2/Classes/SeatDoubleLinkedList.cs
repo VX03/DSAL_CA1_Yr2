@@ -203,10 +203,10 @@ namespace DSAL_CA1_Yr2.Classes
 
         }//end of SearchByRowAndColumn
 
-        public void binarySaveToFile(List<SeatDoubleLinkedList> seatListArray)
+        public void binarySaveToFile(List<SeatDoubleLinkedList> seatListArray,string file)
         {
 
-                string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.dat";
+                string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\" +file;
 
                 BinaryFormatter bf = new BinaryFormatter();
                 Stream stream = new FileStream(filepath, FileMode.OpenOrCreate, FileAccess.Write);
@@ -216,22 +216,22 @@ namespace DSAL_CA1_Yr2.Classes
 
         }//end of binarySaveToFile
 
-        public void textSaveToFile(string s)
+        public void textSaveToFile(string s, string file)
         {
-            string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.txt";
+            string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\" + file ;
 
             TextWriter tw = new StreamWriter(filepath);
             tw.Write(s);
             tw.Close();
         }//end of textSaveToFile
 
-        public List<SeatDoubleLinkedList> binaryReadFromFile()
+        public List<SeatDoubleLinkedList> binaryReadFromFile(string file)
         {
             try
             {
                 //The logic in this method is de-serialization process
                 //De-serializarion is the process of recovering an object from a storage
-                string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.dat";
+                string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\"+file;
                 Stream stream = new FileStream(@filepath, FileMode.OpenOrCreate, FileAccess.Read);
                 BinaryFormatter bf = new BinaryFormatter();
                 List<SeatDoubleLinkedList> list = null;
@@ -249,13 +249,13 @@ namespace DSAL_CA1_Yr2.Classes
             }
         }//end of binaryReadFromFile
 
-        public List<string> textReadFromFile()
+        public List<string> textReadFromFile(string file)
         {
             try
             {
                 string line;
                 List<string> list = new List<string>();
-                string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\data.txt";
+                string filepath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\"+file;
                 TextReader tr = new StreamReader(filepath);
 
                 line = tr.ReadLine();
