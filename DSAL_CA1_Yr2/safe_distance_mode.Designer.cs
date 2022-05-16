@@ -43,8 +43,8 @@
             this.btnA = new System.Windows.Forms.Button();
             this.tbMaxSeat = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnSeatLayout = new System.Windows.Forms.Button();
-            this.rbColumnDivider = new System.Windows.Forms.TextBox();
+            this.btnSetupLayout = new System.Windows.Forms.Button();
+            this.tbColumnDivider = new System.Windows.Forms.TextBox();
             this.tbRowDivider = new System.Windows.Forms.TextBox();
             this.tbSeatsPerRow = new System.Windows.Forms.TextBox();
             this.tbNoOfRow = new System.Windows.Forms.TextBox();
@@ -56,38 +56,46 @@
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnSafeDistanceMode = new System.Windows.Forms.Button();
             this.panelSeats = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnReset = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            this.panelSeats.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelMessage
             // 
             this.labelMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelMessage.Location = new System.Drawing.Point(28, 797);
+            this.labelMessage.Location = new System.Drawing.Point(28, 840);
             this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(270, 189);
+            this.labelMessage.Size = new System.Drawing.Size(270, 146);
             this.labelMessage.TabIndex = 40;
             // 
             // btnDisableAll
             // 
+            this.btnDisableAll.Enabled = false;
             this.btnDisableAll.Location = new System.Drawing.Point(71, 149);
             this.btnDisableAll.Name = "btnDisableAll";
             this.btnDisableAll.Size = new System.Drawing.Size(108, 29);
             this.btnDisableAll.TabIndex = 23;
             this.btnDisableAll.Text = "Disable All";
             this.btnDisableAll.UseVisualStyleBackColor = true;
+            this.btnDisableAll.Click += new System.EventHandler(this.btnEnableDisableAll_Click);
             // 
             // btnEnableAll
             // 
+            this.btnEnableAll.Enabled = false;
             this.btnEnableAll.Location = new System.Drawing.Point(71, 102);
             this.btnEnableAll.Name = "btnEnableAll";
             this.btnEnableAll.Size = new System.Drawing.Size(108, 29);
             this.btnEnableAll.TabIndex = 22;
             this.btnEnableAll.Text = "Enable All";
             this.btnEnableAll.UseVisualStyleBackColor = true;
+            this.btnEnableAll.Click += new System.EventHandler(this.btnEnableDisableAll_Click);
             // 
             // rbDisable
             // 
             this.rbDisable.AutoSize = true;
+            this.rbDisable.Enabled = false;
             this.rbDisable.Location = new System.Drawing.Point(136, 72);
             this.rbDisable.Name = "rbDisable";
             this.rbDisable.Size = new System.Drawing.Size(80, 24);
@@ -99,6 +107,7 @@
             // rbEnable
             // 
             this.rbEnable.AutoSize = true;
+            this.rbEnable.Enabled = false;
             this.rbEnable.Location = new System.Drawing.Point(33, 72);
             this.rbEnable.Name = "rbEnable";
             this.rbEnable.Size = new System.Drawing.Size(75, 24);
@@ -109,12 +118,14 @@
             // 
             // btnEditorMode
             // 
+            this.btnEditorMode.Enabled = false;
             this.btnEditorMode.Location = new System.Drawing.Point(33, 37);
             this.btnEditorMode.Name = "btnEditorMode";
             this.btnEditorMode.Size = new System.Drawing.Size(197, 29);
             this.btnEditorMode.TabIndex = 19;
             this.btnEditorMode.Text = "Enter Editor Mode";
             this.btnEditorMode.UseVisualStyleBackColor = true;
+            this.btnEditorMode.Click += new System.EventHandler(this.btnEditorMode_Click);
             // 
             // groupBox1
             // 
@@ -138,6 +149,7 @@
             this.btnEndSimulation.TabIndex = 38;
             this.btnEndSimulation.Text = "End Simulation";
             this.btnEndSimulation.UseVisualStyleBackColor = true;
+            this.btnEndSimulation.Click += new System.EventHandler(this.btnEndSimulation_Click);
             // 
             // btnD
             // 
@@ -149,6 +161,7 @@
             this.btnD.TabIndex = 37;
             this.btnD.Text = "Person D Booking";
             this.btnD.UseVisualStyleBackColor = false;
+            this.btnD.Click += new System.EventHandler(this.person_Click);
             // 
             // btnC
             // 
@@ -160,17 +173,19 @@
             this.btnC.TabIndex = 36;
             this.btnC.Text = "Person C Booking";
             this.btnC.UseVisualStyleBackColor = false;
+            this.btnC.Click += new System.EventHandler(this.person_Click);
             // 
             // btnB
             // 
-            this.btnB.BackColor = System.Drawing.Color.Blue;
-            this.btnB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnB.BackColor = System.Drawing.Color.Cyan;
+            this.btnB.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnB.Location = new System.Drawing.Point(28, 406);
             this.btnB.Name = "btnB";
             this.btnB.Size = new System.Drawing.Size(270, 29);
             this.btnB.TabIndex = 35;
             this.btnB.Text = "Person B Booking";
             this.btnB.UseVisualStyleBackColor = false;
+            this.btnB.Click += new System.EventHandler(this.person_Click);
             // 
             // btnA
             // 
@@ -181,10 +196,12 @@
             this.btnA.TabIndex = 34;
             this.btnA.Text = "Person A Booking";
             this.btnA.UseVisualStyleBackColor = false;
+            this.btnA.Click += new System.EventHandler(this.person_Click);
             // 
             // tbMaxSeat
             // 
             this.tbMaxSeat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbMaxSeat.Enabled = false;
             this.tbMaxSeat.Location = new System.Drawing.Point(173, 327);
             this.tbMaxSeat.Name = "tbMaxSeat";
             this.tbMaxSeat.Size = new System.Drawing.Size(125, 27);
@@ -199,22 +216,23 @@
             this.label5.TabIndex = 32;
             this.label5.Text = "Max seats";
             // 
-            // btnSeatLayout
+            // btnSetupLayout
             // 
-            this.btnSeatLayout.Location = new System.Drawing.Point(28, 227);
-            this.btnSeatLayout.Name = "btnSeatLayout";
-            this.btnSeatLayout.Size = new System.Drawing.Size(270, 29);
-            this.btnSeatLayout.TabIndex = 31;
-            this.btnSeatLayout.Text = "Setup Cinema Seat Layout";
-            this.btnSeatLayout.UseVisualStyleBackColor = true;
+            this.btnSetupLayout.Location = new System.Drawing.Point(29, 206);
+            this.btnSetupLayout.Name = "btnSetupLayout";
+            this.btnSetupLayout.Size = new System.Drawing.Size(270, 29);
+            this.btnSetupLayout.TabIndex = 31;
+            this.btnSetupLayout.Text = "Setup Cinema Seat Layout";
+            this.btnSetupLayout.UseVisualStyleBackColor = true;
+            this.btnSetupLayout.Click += new System.EventHandler(this.btnSetupLayout_Click);
             // 
-            // rbColumnDivider
+            // tbColumnDivider
             // 
-            this.rbColumnDivider.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rbColumnDivider.Location = new System.Drawing.Point(173, 158);
-            this.rbColumnDivider.Name = "rbColumnDivider";
-            this.rbColumnDivider.Size = new System.Drawing.Size(125, 27);
-            this.rbColumnDivider.TabIndex = 30;
+            this.tbColumnDivider.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbColumnDivider.Location = new System.Drawing.Point(173, 158);
+            this.tbColumnDivider.Name = "tbColumnDivider";
+            this.tbColumnDivider.Size = new System.Drawing.Size(125, 27);
+            this.tbColumnDivider.TabIndex = 30;
             // 
             // tbRowDivider
             // 
@@ -284,6 +302,7 @@
             this.btnSave.TabIndex = 22;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnLoad
             // 
@@ -293,29 +312,56 @@
             this.btnLoad.TabIndex = 21;
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnSafeDistanceMode
             // 
-            this.btnSafeDistanceMode.Location = new System.Drawing.Point(28, 278);
+            this.btnSafeDistanceMode.Location = new System.Drawing.Point(29, 260);
             this.btnSafeDistanceMode.Name = "btnSafeDistanceMode";
             this.btnSafeDistanceMode.Size = new System.Drawing.Size(270, 29);
             this.btnSafeDistanceMode.TabIndex = 42;
             this.btnSafeDistanceMode.Text = "Setup Safe Distance Mode";
             this.btnSafeDistanceMode.UseVisualStyleBackColor = true;
+            this.btnSafeDistanceMode.Click += new System.EventHandler(this.btnSafeDistanceMode_Click);
             // 
             // panelSeats
             // 
+            this.panelSeats.AutoScroll = true;
             this.panelSeats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSeats.Controls.Add(this.textBox1);
             this.panelSeats.Location = new System.Drawing.Point(317, 12);
             this.panelSeats.Name = "panelSeats";
             this.panelSeats.Size = new System.Drawing.Size(1272, 974);
             this.panelSeats.TabIndex = 43;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.textBox1.Location = new System.Drawing.Point(255, -2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(692, 27);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "Screen";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(29, 792);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(269, 31);
+            this.btnReset.TabIndex = 44;
+            this.btnReset.Text = "Reset Simulation";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnResetSimulation_Click);
+            // 
             // safe_distance_mode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1601, 998);
+            this.ClientSize = new System.Drawing.Size(1601, 991);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.panelSeats);
             this.Controls.Add(this.btnSafeDistanceMode);
             this.Controls.Add(this.labelMessage);
@@ -327,8 +373,8 @@
             this.Controls.Add(this.btnA);
             this.Controls.Add(this.tbMaxSeat);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.btnSeatLayout);
-            this.Controls.Add(this.rbColumnDivider);
+            this.Controls.Add(this.btnSetupLayout);
+            this.Controls.Add(this.tbColumnDivider);
             this.Controls.Add(this.tbRowDivider);
             this.Controls.Add(this.tbSeatsPerRow);
             this.Controls.Add(this.tbNoOfRow);
@@ -342,6 +388,8 @@
             this.Text = "safe_distance_mode";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panelSeats.ResumeLayout(false);
+            this.panelSeats.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -363,8 +411,8 @@
         private System.Windows.Forms.Button btnA;
         private System.Windows.Forms.TextBox tbMaxSeat;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnSeatLayout;
-        private System.Windows.Forms.TextBox rbColumnDivider;
+        private System.Windows.Forms.Button btnSetupLayout;
+        private System.Windows.Forms.TextBox tbColumnDivider;
         private System.Windows.Forms.TextBox tbRowDivider;
         private System.Windows.Forms.TextBox tbSeatsPerRow;
         private System.Windows.Forms.TextBox tbNoOfRow;
@@ -376,5 +424,7 @@
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnSafeDistanceMode;
         private System.Windows.Forms.Panel panelSeats;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

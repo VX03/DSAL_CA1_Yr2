@@ -17,7 +17,7 @@ namespace DSAL_CA1_Yr2
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new normal_mode());
+            Application.Run(new ParentForm());
         }
     }
 }

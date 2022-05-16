@@ -21,9 +21,6 @@ namespace DSAL_CA1_Yr2
                                              new SeatDoubleLinkedList()
                                             };
 
-
-        PanelLabels panelLabels = new PanelLabels();
-
         string[] bookingPersonArray = { "A", "B", "C", "D" };
         bool bookSeats = false;
         public normal_mode()
@@ -40,6 +37,7 @@ namespace DSAL_CA1_Yr2
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             generate();
+            btnEditorMode.Enabled = true;
         }//end of btnGenerate_Click
 
         private void person_Click(object sender, EventArgs e)
@@ -364,8 +362,8 @@ namespace DSAL_CA1_Yr2
 
                 int row = int.Parse(tbNoOfRow.Text);
                 int seatsPerRow = int.Parse(tbSeatsPerRow.Text);
-                int[] rowDivider = panelLabels.convertStringToInt(",", tbRowDivider);
-                int[] colDivider = panelLabels.convertStringToInt(",", tbColumnDivider);
+                int[] rowDivider = seatList.convertStringToInt(",", tbRowDivider);
+                int[] colDivider = seatList.convertStringToInt(",", tbColumnDivider);
 
 
                 for (int i = 1; i <= row; i++)
@@ -690,8 +688,8 @@ namespace DSAL_CA1_Yr2
 
                 int row = int.Parse(tbNoOfRow.Text);
                 int seatsPerRow = int.Parse(tbSeatsPerRow.Text);
-                int[] rowDivider = panelLabels.convertStringToInt(",", tbRowDivider);
-                int[] colDivider = panelLabels.convertStringToInt(",", tbColumnDivider);
+                int[] rowDivider = seatList.convertStringToInt(",", tbRowDivider);
+                int[] colDivider = seatList.convertStringToInt(",", tbColumnDivider);
 
                 for (int i = 1; i <= row; i++)
                 {
@@ -876,5 +874,7 @@ namespace DSAL_CA1_Yr2
                 panelSeats.Controls.Remove(seatLabel);
             }
         }//end of delSeatandLabel
+
+
     }//end of normal_mode
 }

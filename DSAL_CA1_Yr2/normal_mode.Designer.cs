@@ -55,9 +55,9 @@
             this.labelMessage = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panelSeats = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnResetSimulation = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.panelSeats.SuspendLayout();
             this.SuspendLayout();
@@ -142,7 +142,7 @@
             // 
             // btnGenerate
             // 
-            this.btnGenerate.Location = new System.Drawing.Point(2, 208);
+            this.btnGenerate.Location = new System.Drawing.Point(12, 208);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(270, 29);
             this.btnGenerate.TabIndex = 10;
@@ -181,8 +181,8 @@
             // 
             // btnB
             // 
-            this.btnB.BackColor = System.Drawing.Color.Blue;
-            this.btnB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnB.BackColor = System.Drawing.Color.Cyan;
+            this.btnB.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnB.Location = new System.Drawing.Point(12, 377);
             this.btnB.Name = "btnB";
             this.btnB.Size = new System.Drawing.Size(270, 29);
@@ -287,6 +287,7 @@
             // 
             // btnEditorMode
             // 
+            this.btnEditorMode.Enabled = false;
             this.btnEditorMode.Location = new System.Drawing.Point(33, 37);
             this.btnEditorMode.Name = "btnEditorMode";
             this.btnEditorMode.Size = new System.Drawing.Size(197, 29);
@@ -315,12 +316,25 @@
             // 
             // panelSeats
             // 
+            this.panelSeats.AutoScroll = true;
             this.panelSeats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSeats.Controls.Add(this.textBox1);
             this.panelSeats.Location = new System.Drawing.Point(302, 31);
             this.panelSeats.Name = "panelSeats";
             this.panelSeats.Size = new System.Drawing.Size(1155, 1012);
             this.panelSeats.TabIndex = 20;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.textBox1.Location = new System.Drawing.Point(190, 1);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(664, 27);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "Screen";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnResetSimulation
             // 
@@ -341,18 +355,6 @@
             this.btnUndo.Text = "Undo";
             this.btnUndo.UseVisualStyleBackColor = true;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.textBox1.Location = new System.Drawing.Point(190, 1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(664, 27);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "Screen";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // normal_mode
             // 

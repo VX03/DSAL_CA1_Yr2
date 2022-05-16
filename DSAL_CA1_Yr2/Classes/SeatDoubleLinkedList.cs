@@ -274,5 +274,12 @@ namespace DSAL_CA1_Yr2.Classes
                 return null;
             }
         }//end of textReadFromFile
+
+        public int[] convertStringToInt(string split, TextBox s)
+        {
+            string[] stringArray = s.Text.Split(split);
+            int[] intArray = Array.ConvertAll(stringArray, s => int.Parse(s));
+            return intArray;
+        }
     }//end of SeatDoubleLinkedList
 }//end of namespace
