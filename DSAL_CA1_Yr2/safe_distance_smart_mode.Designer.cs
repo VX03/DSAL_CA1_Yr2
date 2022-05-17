@@ -45,11 +45,11 @@
             this.panelSeats = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.rbEnable = new System.Windows.Forms.RadioButton();
-            this.Disable = new System.Windows.Forms.RadioButton();
+            this.btnDisableAll = new System.Windows.Forms.Button();
             this.btnEnableAll = new System.Windows.Forms.Button();
-            this.tnDisableAll = new System.Windows.Forms.Button();
+            this.rbDisable = new System.Windows.Forms.RadioButton();
+            this.rbEnable = new System.Windows.Forms.RadioButton();
+            this.btnEditorMode = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numRow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCol)).BeginInit();
             this.panelSeats.SuspendLayout();
@@ -199,26 +199,50 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.tnDisableAll);
+            this.groupBox1.Controls.Add(this.btnDisableAll);
             this.groupBox1.Controls.Add(this.btnEnableAll);
-            this.groupBox1.Controls.Add(this.Disable);
+            this.groupBox1.Controls.Add(this.rbDisable);
             this.groupBox1.Controls.Add(this.rbEnable);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnEditorMode);
             this.groupBox1.Location = new System.Drawing.Point(52, 439);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(250, 195);
             this.groupBox1.TabIndex = 67;
             this.groupBox1.TabStop = false;
             // 
-            // button1
+            // btnDisableAll
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(28, 26);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(191, 29);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Enter Editor Mode";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnDisableAll.Enabled = false;
+            this.btnDisableAll.Location = new System.Drawing.Point(140, 120);
+            this.btnDisableAll.Name = "btnDisableAll";
+            this.btnDisableAll.Size = new System.Drawing.Size(91, 29);
+            this.btnDisableAll.TabIndex = 4;
+            this.btnDisableAll.Text = "Disable All";
+            this.btnDisableAll.UseVisualStyleBackColor = true;
+            this.btnDisableAll.Click += new System.EventHandler(this.btnEnableDisableAll_Click);
+            // 
+            // btnEnableAll
+            // 
+            this.btnEnableAll.Enabled = false;
+            this.btnEnableAll.Location = new System.Drawing.Point(17, 120);
+            this.btnEnableAll.Name = "btnEnableAll";
+            this.btnEnableAll.Size = new System.Drawing.Size(91, 29);
+            this.btnEnableAll.TabIndex = 3;
+            this.btnEnableAll.Text = "Enable All";
+            this.btnEnableAll.UseVisualStyleBackColor = true;
+            this.btnEnableAll.Click += new System.EventHandler(this.btnEnableDisableAll_Click);
+            // 
+            // rbDisable
+            // 
+            this.rbDisable.AutoSize = true;
+            this.rbDisable.Enabled = false;
+            this.rbDisable.Location = new System.Drawing.Point(140, 73);
+            this.rbDisable.Name = "rbDisable";
+            this.rbDisable.Size = new System.Drawing.Size(80, 24);
+            this.rbDisable.TabIndex = 2;
+            this.rbDisable.TabStop = true;
+            this.rbDisable.Text = "Disable";
+            this.rbDisable.UseVisualStyleBackColor = true;
             // 
             // rbEnable
             // 
@@ -232,37 +256,16 @@
             this.rbEnable.Text = "Enable";
             this.rbEnable.UseVisualStyleBackColor = true;
             // 
-            // Disable
+            // btnEditorMode
             // 
-            this.Disable.AutoSize = true;
-            this.Disable.Enabled = false;
-            this.Disable.Location = new System.Drawing.Point(140, 73);
-            this.Disable.Name = "Disable";
-            this.Disable.Size = new System.Drawing.Size(80, 24);
-            this.Disable.TabIndex = 2;
-            this.Disable.TabStop = true;
-            this.Disable.Text = "Disable";
-            this.Disable.UseVisualStyleBackColor = true;
-            // 
-            // btnEnableAll
-            // 
-            this.btnEnableAll.Enabled = false;
-            this.btnEnableAll.Location = new System.Drawing.Point(17, 120);
-            this.btnEnableAll.Name = "btnEnableAll";
-            this.btnEnableAll.Size = new System.Drawing.Size(91, 29);
-            this.btnEnableAll.TabIndex = 3;
-            this.btnEnableAll.Text = "Enable All";
-            this.btnEnableAll.UseVisualStyleBackColor = true;
-            // 
-            // tnDisableAll
-            // 
-            this.tnDisableAll.Enabled = false;
-            this.tnDisableAll.Location = new System.Drawing.Point(140, 120);
-            this.tnDisableAll.Name = "tnDisableAll";
-            this.tnDisableAll.Size = new System.Drawing.Size(91, 29);
-            this.tnDisableAll.TabIndex = 4;
-            this.tnDisableAll.Text = "Disable All";
-            this.tnDisableAll.UseVisualStyleBackColor = true;
+            this.btnEditorMode.Enabled = false;
+            this.btnEditorMode.Location = new System.Drawing.Point(28, 26);
+            this.btnEditorMode.Name = "btnEditorMode";
+            this.btnEditorMode.Size = new System.Drawing.Size(191, 29);
+            this.btnEditorMode.TabIndex = 1;
+            this.btnEditorMode.Text = "Enter Editor Mode";
+            this.btnEditorMode.UseVisualStyleBackColor = true;
+            this.btnEditorMode.Click += new System.EventHandler(this.btnEditorMode_Click);
             // 
             // safe_distance_smart_mode
             // 
@@ -316,10 +319,10 @@
         private System.Windows.Forms.Panel panelSeats;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button tnDisableAll;
+        private System.Windows.Forms.Button btnDisableAll;
         private System.Windows.Forms.Button btnEnableAll;
-        private System.Windows.Forms.RadioButton Disable;
+        private System.Windows.Forms.RadioButton rbDisable;
         private System.Windows.Forms.RadioButton rbEnable;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEditorMode;
     }
 }

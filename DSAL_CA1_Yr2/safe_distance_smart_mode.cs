@@ -35,12 +35,43 @@ namespace DSAL_CA1_Yr2
             try
             {
                 generate();
+                btnEditorMode.Enabled = true;
             }catch (Exception ex)
             {
 
             }
         }
 
+        public void btnEnableDisableAll_Click(object sender, EventArgs e)
+        {
+            bool enableDisable = false;
+            Button button = (Button)sender;
+
+            if (button.Text == "Enable All")
+            {
+                enableDisable = true;
+            }
+
+            List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
+
+            foreach (Label label in labels)
+            {
+                SeatInfo si = (SeatInfo)label.Tag;
+                Seat seat = seatList.SearchByRowAndColumn(si.Row, si.Column);
+                if (enableDisable)
+                {
+                    seat.CanBook = true;
+                    label.BackColor = Color.White;
+                }
+                else
+                {
+                    seat.CanBook = false;
+                    seat.BookStatus = false;
+                    seat.BookingPerson = null;
+                    label.BackColor = Color.DarkBlue;
+                }
+            }
+        }//end 
         public void generate()
         {
             try
@@ -141,7 +172,14 @@ namespace DSAL_CA1_Yr2
             Color[] colorArray = { btnA.BackColor, btnB.BackColor, btnC.BackColor, btnD.BackColor };
             return colorArray;
         }//end of getColorArray
-
+        private void trueFalseEditor(Boolean input)
+        {
+            rbEnable.Enabled = input;
+            rbDisable.Enabled = input;
+            btnEnableAll.Enabled = input;
+            btnDisableAll.Enabled = input;
+            btnEditorMode.Enabled = input;
+        }//end of trueFalseEditor
         public void labelSeat_Click(object sender, EventArgs e) { }
         public void delSeatandLabel()
         {
@@ -162,6 +200,20 @@ namespace DSAL_CA1_Yr2
             }
         }//end of delSeatandLabel
 
-        
+        private void btnEditorMode_Click(object sender, EventArgs e)
+        {
+            if (btnEditorMode.Text == "Enter Editor Mode")
+            {
+                trueFalseEditor(true);
+                btnEditorMode.Text = "Exit Editor Mode";
+            }
+            else
+            {
+                trueFalseEditor(false);
+                btnEditorMode.Enabled = true;
+                btnEditorMode.Text = "Enter Editor Mode";
+            }
+
+        }
     }
 }

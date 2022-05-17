@@ -229,14 +229,16 @@ namespace DSAL_CA1_Yr2
                                 //if left or right seat is null
                                 if (leftSeat == null || rightSeat == null)
                                 {
+                                    /*
                                     //there is a different person seating at the side
                                     if (!((leftSeat != null && leftSeat.BookingPerson == bookingPersonArray[i]) || (rightSeat != null && rightSeat.BookingPerson == bookingPersonArray[i]) || seatListArray[i].Counter == 0))
                                     {
-                                        MessageBox.Show("Unable to book seat when the seat beside is booked by another person");
+                                        MessageBox.Show("Can only book adjacent seat");
                                         return;
-                                    }
+                                     }
+                                    */
                                     //none chosen
-                                    else if (seatListArray[i].Counter == 0 && ((leftSeat != null && leftSeat.BookingPerson == null) || (rightSeat != null && rightSeat.BookingPerson == null)))
+                                    if (seatListArray[i].Counter == 0 && ((leftSeat != null && leftSeat.BookingPerson == null) || (rightSeat != null && rightSeat.BookingPerson == null)))
                                     {
                                         seatListArray[i].Counter = seatListArray[i].Counter+1;
                                         seat.BookStatus = true;
@@ -258,7 +260,14 @@ namespace DSAL_CA1_Yr2
                                     }//end else if 
                                     else if (!(leftSeat != null && leftSeat.BookingPerson == bookingPersonArray[i]) || (rightSeat != null && rightSeat.BookingPerson == bookingPersonArray[i]))
                                     {
-                                        MessageBox.Show("Unable to book seat when the seat beside is booked by another");
+                                        if (leftSeat == null && rightSeat.BookingPerson != null) {
+                                            MessageBox.Show("You cannot book seat next to another person!!!");
+                                        }
+                                        else if(rightSeat == null && leftSeat.BookingPerson != null) {
+                                            MessageBox.Show("You cannot book seat next to another person!!!");
+                                        }
+                                        else
+                                            MessageBox.Show("You may only book adjacent seats!!!");
                                         return;
                                     }
                                     else
@@ -293,12 +302,16 @@ namespace DSAL_CA1_Yr2
                                      //there is a different person seating at the side
                                 else if (!(leftSeat.BookingPerson == bookingPersonArray[i] && rightSeat.BookingPerson == bookingPersonArray[i]))
                                 {
-                                    MessageBox.Show("Unable to book seat when the seat beside is booked by another");
+                                    if(leftSeat.BookingPerson == null&&rightSeat.BookingPerson==null)
+                                        MessageBox.Show("You can only book adjacent seat");
+
+                                    else
+                                        MessageBox.Show("You cannot book seat next to another person!!!");
                                     return;
                                 }
                                 else
                                 {
-                                    MessageBox.Show("You may only book adjacent seats!!!");
+                                    MessageBox.Show("You cannot book seat next to another person!!!");
                                     return;
                                 }
                             } //end if
@@ -529,6 +542,8 @@ namespace DSAL_CA1_Yr2
                 else
                 {
                     seat.CanBook = false;
+                    seat.BookStatus = false;
+                    seat.BookingPerson = null;
                     label.BackColor = Color.DarkBlue;
                 }
             }
