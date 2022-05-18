@@ -17,7 +17,13 @@ namespace DSAL_CA1_Yr2.Classes
         private int _column;
 
         private string _bookingPerson;
+        private string _bookingType;
 
+        public string BookingType
+        {
+            get { return _bookingType; }
+            set { _bookingType = value; }
+        }
         public string BookingPerson
         {
             get { return _bookingPerson; }

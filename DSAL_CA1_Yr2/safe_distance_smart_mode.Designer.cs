@@ -65,6 +65,7 @@
             this.btnA.TabIndex = 56;
             this.btnA.Text = "Person A Booking";
             this.btnA.UseVisualStyleBackColor = false;
+            this.btnA.Click += new System.EventHandler(this.btnPerson_Click);
             // 
             // labelMessage
             // 
@@ -93,6 +94,7 @@
             this.btnD.TabIndex = 59;
             this.btnD.Text = "Person D Booking";
             this.btnD.UseVisualStyleBackColor = false;
+            this.btnD.Click += new System.EventHandler(this.btnPerson_Click);
             // 
             // btnC
             // 
@@ -104,6 +106,7 @@
             this.btnC.TabIndex = 58;
             this.btnC.Text = "Person C Booking";
             this.btnC.UseVisualStyleBackColor = false;
+            this.btnC.Click += new System.EventHandler(this.btnPerson_Click);
             // 
             // btnB
             // 
@@ -115,6 +118,7 @@
             this.btnB.TabIndex = 57;
             this.btnB.Text = "Person B Booking";
             this.btnB.UseVisualStyleBackColor = false;
+            this.btnB.Click += new System.EventHandler(this.btnPerson_Click);
             // 
             // btnSeatLayout
             // 
@@ -152,6 +156,7 @@
             this.btnSave.TabIndex = 44;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnLoad
             // 

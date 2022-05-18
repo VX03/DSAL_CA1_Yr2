@@ -54,29 +54,74 @@ namespace DSAL_CA1_Yr2.Classes
             newNode.Prev = p;
         }//End of InsertAtEnd
 
-        public void DeleteAllSeat()
+        public List<string> checkSeat(SeatDoubleLinkedList ownSeatList,SeatDoubleLinkedList seatList,Seat pSeatData,string bookingPerson)
         {
-            if (this.Start == null)
-            {
-                return;
-            }//end of if
-            if (this.Start.Next == null)
-            {
-                this.Start = null;
-                return;
-            }//End of if
-            Node p = this.Start.Next;
+            List<string> stateArray = new List<string> (4);
+            Seat rightSeat = seatList.SearchByRowAndColumn(pSeatData.Row, pSeatData.Column + 1);
+            Seat leftSeat = seatList.SearchByRowAndColumn(pSeatData.Row, pSeatData.Column - 1);
 
-            while(p.Next != null)
+            Seat frontSeat = seatList.SearchByRowAndColumn(pSeatData.Row - 1, pSeatData.Column);
+            Seat backSeat = seatList.SearchByRowAndColumn(pSeatData.Row + 1, pSeatData.Column);
+
+
+            if(this.Start == null)
             {
-                p = p.Next;
-                p.Prev = null;
+                return stateArray;
             }
-            if (this.Start.Next == null)
+
+            Node current = this.Start;
+
+
+
+            if(pSeatData.BookStatus == false)
             {
-                this.Start = null;
-                return;
-            }//End of if
+                stateArray[0] = "seat able to book";
+            }
+            else
+            {
+                return null;
+            }
+            if (rightSeat == null || leftSeat == null)
+            {
+                if(rightSeat == null)
+                {
+                    stateArray[2] = "Does not exist";
+                    if(leftSeat == null)
+                    {
+                        stateArray[1] = "left seat unable to book";
+                    }
+                    else if (leftSeat.CanBook == false)
+                    {
+                        stateArray[1] = "left seat unable to book";
+                    }
+                    else if (ownSeatList.Counter == 0)
+                    {
+                        if(leftSeat.BookStatus == true)
+                        {
+                            return null;
+                        }//person seating beside
+                        
+                        else
+                        {
+                            stateArray[1] = "left seat able to book";
+                        }
+                        
+                    }//counter = 0
+                    else
+                    {
+                        if(leftSeat.BookStatus == true && leftSeat.BookingPerson != bookingPerson)
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            stateArray[1] = "left seat able to book";
+                        }
+                    }
+                }//right seat null
+            }
+
+            return stateArray;
         }
 
         public void DeleteSeat(Seat pSeatData)

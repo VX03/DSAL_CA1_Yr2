@@ -41,7 +41,6 @@ namespace DSAL_CA1_Yr2
 
             }
         }
-
         public void btnEnableDisableAll_Click(object sender, EventArgs e)
         {
             bool enableDisable = false;
@@ -180,7 +179,379 @@ namespace DSAL_CA1_Yr2
             btnDisableAll.Enabled = input;
             btnEditorMode.Enabled = input;
         }//end of trueFalseEditor
-        public void labelSeat_Click(object sender, EventArgs e) { }
+        public void labelSeat_Click(object sender, EventArgs e) 
+        {
+            List <Label> labels = panelSeats.Controls.OfType<Label>().ToList(); 
+            Color[] colorArray = getColorArray();
+            Color color = Color.White;//set color to white
+            Label label = (Label)sender;//label that is clicked
+            SeatInfo seatInfo = (SeatInfo)label.Tag;//tag label
+            Boolean[] stateArray = new Boolean[4];
+
+            Seat seat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column);
+            Seat rightSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column + 1);
+            Seat leftSeat = seatList.SearchByRowAndColumn(seatInfo.Row, seatInfo.Column - 1);
+
+            Seat frontSeat = seatList.SearchByRowAndColumn(seatInfo.Row - 1, seatInfo.Column);
+            Seat backSeat = seatList.SearchByRowAndColumn(seatInfo.Row + 1, seatInfo.Column);
+
+            if (rbDisable.Enabled == true && rbDisable.Checked == true)
+            {
+                seat.CanBook = false;
+                label.BackColor = Color.DarkBlue;
+                return;
+            }
+            else if (rbEnable.Enabled == true && rbEnable.Checked == true)
+            {
+                seat.CanBook = true;
+                label.BackColor = Color.White;
+                return;
+            }
+
+            if (bookSeats == false)
+            {
+                MessageBox.Show("Click on Person button");
+                return;
+            }
+
+            try
+            {
+                
+
+                for (int i = 0; i < seatListArray.Count - 1; i++)
+                {
+
+                    if (seatListArray[i].PersonChosen == true)
+                    {
+                        color = colorArray[i];//set color
+
+                        //chose seat
+                        if (label.BackColor == Color.White)
+                        {
+
+                                //if left or right seat is null
+                                if (leftSeat == null || rightSeat == null || frontSeat == null || backSeat == null)
+                                {
+                                    //none chosen
+                                    if (seatListArray[i].Counter == 0 &&
+                                        ((leftSeat != null && leftSeat.BookingPerson == null) ||
+                                        (rightSeat != null && rightSeat.BookingPerson == null) ||
+                                        (frontSeat != null && frontSeat.BookingPerson == null) ||
+                                        (backSeat != null && backSeat.BookingPerson == null)))
+                                    {
+                                        seatListArray[i].Counter = seatListArray[i].Counter + 1;
+                                        seat.BookStatus = true;
+                                        seat.BookingPerson = bookingPersonArray[i];
+                                        seatListArray[i].InsertAtEnd(seat);
+                                        label.BackColor = color;
+                                        return;
+                                    }
+
+                                    //left or right or front or back seat 
+                                    else if ((leftSeat != null && leftSeat.BookingPerson == bookingPersonArray[i]) ||
+                                            (rightSeat != null && rightSeat.BookingPerson == bookingPersonArray[i]) ||
+                                            (frontSeat != null && frontSeat.BookingPerson == bookingPersonArray[i]) ||
+                                            (backSeat != null && backSeat.BookingPerson == bookingPersonArray[i]))
+                                    {
+                                        seatListArray[i].Counter = seatListArray[i].Counter + 1;
+                                        seat.BookStatus = true;
+                                        seat.BookingPerson = bookingPersonArray[i];
+                                        seatListArray[i].InsertAtEnd(seat);
+                                        label.BackColor = color;
+                                        return;
+                                    }//end else if 
+                                    else
+                                    {
+                                        if (leftSeat == null && rightSeat.BookingPerson != null)
+                                        {
+                                            MessageBox.Show("You cannot book seat next to another person!!!");
+                                        }
+                                        else if (rightSeat == null && leftSeat.BookingPerson != null)
+                                        {
+                                            MessageBox.Show("You cannot book seat next to another person!!!");
+                                        }
+                                        else
+                                            MessageBox.Show("You may only book adjacent seats!!!");
+                                        return;
+                                    }
+
+                                }//end of if for null seats
+
+                                //for non-null seats
+                                else if (seatListArray[i].Counter == 0 &&
+                                        leftSeat.BookingPerson == null &&
+                                        rightSeat.BookingPerson == null &&
+                                        frontSeat.BookingPerson == null &&
+                                        backSeat.BookingPerson == null)
+                                {
+                                    seatListArray[i].Counter = seatListArray[i].Counter + 1;
+                                    seat.BookStatus = true;
+                                    seat.BookingPerson = bookingPersonArray[i];
+                                    seatListArray[i].InsertAtEnd(seat);
+                                    label.BackColor = color;
+                                    return;
+                                }//end else if
+
+
+                            //there is a different person seating at the side
+                            else if ((leftSeat.BookingPerson == bookingPersonArray[i] || leftSeat.BookingPerson == null) &&
+                                     (rightSeat.BookingPerson == bookingPersonArray[i] || rightSeat.BookingPerson == null) &&
+                                     (frontSeat.BookingPerson == bookingPersonArray[i] || frontSeat.BookingPerson == null) &&
+                                     (backSeat.BookingPerson == bookingPersonArray[i] || backSeat.BookingPerson == null))
+                            {
+                                seatListArray[i].Counter = seatListArray[i].Counter + 1;
+                                seat.BookStatus = true;
+                                seat.BookingPerson = bookingPersonArray[i];
+                                seatListArray[i].InsertAtEnd(seat);
+                                label.BackColor = color;
+                                return;
+                            }
+//left or right seats are not null
+                                else
+                                {
+                                    MessageBox.Show("Unable to book Seat");
+                                }//end else if
+                            } //end if
+
+                        //delete seat
+                        else if (label.BackColor == colorArray[i])
+                        {
+                            //if all seats around is null
+                            if (leftSeat == null || rightSeat == null || frontSeat == null || backSeat == null)
+                            {
+                                if ((leftSeat == null && frontSeat == null) ||
+                                    (leftSeat == null && backSeat == null) ||
+                                    (rightSeat == null && backSeat == null) ||
+                                    (rightSeat == null && frontSeat == null))
+                                {
+                                    if(leftSeat == null && frontSeat == null) { 
+                                        if (rightSeat.BookStatus && backSeat.BookStatus)
+                                        {
+                                            MessageBox.Show("Unable to unbook");
+                                            return;
+                                        }
+                                    }
+                                    else if (leftSeat == null && backSeat == null)
+                                    {
+                                        if (rightSeat.BookStatus && frontSeat.BookStatus)
+                                        {
+                                            MessageBox.Show("Unable to unbook");
+                                            return;
+                                        }
+                                    }
+                                    else if (rightSeat == null && backSeat == null)
+                                    {
+                                        if (leftSeat.BookStatus && frontSeat.BookStatus)
+                                        {
+                                            MessageBox.Show("Unable to unbook");
+                                            return;
+                                        }
+                                    }
+                                    else if (rightSeat == null && frontSeat == null)
+                                    {
+                                        if (leftSeat.BookStatus && backSeat.BookStatus)
+                                        {
+                                            MessageBox.Show("Unable to unbook");
+                                            return;
+                                        }
+                                    }
+                                }
+                                if (leftSeat != null && rightSeat != null)
+                                {
+                                    if (leftSeat.BookStatus && rightSeat.BookStatus)
+                                    {
+                                        MessageBox.Show("Unable to unbook");
+                                        return ;
+                                    }
+                                }
+                                else if (frontSeat != null && backSeat != null)
+                                {
+                                    if (frontSeat.BookStatus && backSeat.BookStatus)
+                                    {
+                                        MessageBox.Show("Unable to book");
+                                        return;
+                                    }
+                                }
+                                seatListArray[i].Counter = seatListArray[i].Counter - 1;
+                                seat.BookStatus = false;
+                                seat.BookingPerson = null;
+                                seatListArray[i].DeleteSeat(seat);
+                                label.BackColor = Color.White;
+                                return;
+                            }
+                            if ((leftSeat.BookStatus && rightSeat.BookStatus)||(frontSeat.BookStatus && backSeat.BookStatus))
+                            {
+                                MessageBox.Show("Unable to unbook");
+                                return;
+                            }
+                            else if (!(rightSeat.BookStatus && leftSeat.BookStatus && frontSeat.BookStatus && backSeat.BookStatus))
+                            {
+                                seatListArray[i].Counter = seatListArray[i].Counter - 1;
+                                seat.BookStatus = false;
+                                seat.BookingPerson = null;
+                                seatListArray[i].DeleteSeat(seat);
+                                label.BackColor = Color.White;
+                                return;
+
+                            }//end else if
+                            else if(leftSeat.BookingPerson != bookingPersonArray[i] ||
+                                    rightSeat.BookingPerson != bookingPersonArray[i] ||
+                                    frontSeat.BookingPerson != bookingPersonArray[i] ||
+                                    backSeat.BookingPerson != bookingPersonArray[i])
+                            {
+                                MessageBox.Show("unable to delete seat");
+                            }
+                        }//end else if
+                        }//end if
+
+                }//end of forloop
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void btnPerson_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Button button = (Button)sender;
+                List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
+
+                if (button.Text == "Person A Booking")
+                {
+                    for (int i = 0; i < seatListArray.Count - 1; i++)
+                    {
+                        if (i == 0)
+                        {
+                            seatListArray[i].PersonChosen = true;
+                        }
+                        else
+                        {
+                            seatListArray[i].PersonChosen = false;
+                        }
+                    }
+                }
+                else if (button.Text == "Person B Booking")
+                {
+                    for (int i = 0; i < seatListArray.Count - 1; i++)
+                    {
+                        if (i == 1)
+                        {
+                            seatListArray[i].PersonChosen = true;
+                        }
+                        else
+                        {
+                            seatListArray[i].PersonChosen = false;
+                        }
+                    }
+                }
+                else if (button.Text == "Person C Booking")
+                {
+                    for (int i = 0; i < seatListArray.Count - 1; i++)
+                    {
+                        if (i == 2)
+                        {
+                            seatListArray[i].PersonChosen = true;
+                        }
+                        else
+                        {
+                            seatListArray[i].PersonChosen = false;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < seatListArray.Count - 1; i++)
+                    {
+                        if (i == 3)
+                        {
+                            seatListArray[i].PersonChosen = true;
+                        }
+                        else
+                        {
+                            seatListArray[i].PersonChosen = false;
+                        }
+                    }
+                }
+
+                numRow.Enabled = false;
+                numCol.Enabled = false;
+
+                trueFalseEditor(false);
+                bookSeats = true;
+
+                changeLabelColorAndCanBook();
+                Color[] colorArray = getColorArray();
+
+                for (int i = 0; i < bookingPersonArray.Length; i++)
+                {
+                    if (seatListArray[i].PersonChosen == true)
+                    {
+                        foreach (Label label in labels)
+                        {
+                            SeatInfo si = (SeatInfo)label.Tag;
+                            Seat seat = seatList.SearchByRowAndColumn(si.Row, si.Column);
+                            if (seat.BookingPerson == bookingPersonArray[i])
+                            {
+                                label.BackColor = colorArray[i];
+                            }
+                            labelMessage.Text = "Person " + bookingPersonArray[i] + " is booking now.";
+                        }
+                    }//end forloop
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown Error");
+            }
+        }
+        public void changeLabelColorAndCanBook()
+        {
+            try
+            {
+                Color[] colorArray = getColorArray();
+                bool getColor = false;
+                List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
+                foreach (Label label in labels)
+                {
+                    SeatInfo si = (SeatInfo)label.Tag;
+                    Seat seat = seatList.SearchByRowAndColumn(si.Row, si.Column);
+                    foreach (Color color in colorArray)
+                    {
+                        if (color == label.BackColor)
+                        {
+                            getColor = true;
+                            label.BackColor = Color.DarkGray;
+                        }
+                    }
+                    if (label.BackColor == Color.LightBlue || label.BackColor == Color.White)
+                    {
+                        seat.CanBook = true;
+                        label.BackColor = Color.White;
+                    }
+                    else if (label.BackColor == Color.DarkBlue)
+                    {
+                        seat.BookStatus = false;
+                        seat.BookingPerson = null;
+                        seat.CanBook = false;
+
+                        foreach (SeatDoubleLinkedList seatDoubleLinkedList in seatListArray)
+                        {
+                            seatDoubleLinkedList.DeleteSeat(seat);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown Error");
+            }
+        }//end of changeLabelColorAndCanBook
         public void delSeatandLabel()
         {
             List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
@@ -214,6 +585,35 @@ namespace DSAL_CA1_Yr2
                 btnEditorMode.Text = "Enter Editor Mode";
             }
 
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
+                foreach (Label label in labels)
+                {
+                    SeatInfo si = (SeatInfo)label.Tag;
+                    Seat seat = seatList.SearchByRowAndColumn(si.Row, si.Column);
+                    if (seat.CanBook == false)
+                    {
+                        seatListArray[4].InsertAtEnd(seat);
+                    }
+                }
+
+                seatList.binarySaveToFile(seatListArray, "safeMode.dat");
+
+                
+                string s = numRow.Text + "\n" + numCol.Text;
+                seatList.textSaveToFile(s, "safeMode.txt");
+
+                MessageBox.Show("Saved to file");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
