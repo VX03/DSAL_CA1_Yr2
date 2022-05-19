@@ -906,7 +906,6 @@ namespace DSAL_CA1_Yr2
             }
 
         }//end of setTbAndBtn
-
         public void delSeatandLabel()
         {
             List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();

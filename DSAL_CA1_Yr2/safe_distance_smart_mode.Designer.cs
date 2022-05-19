@@ -83,6 +83,7 @@
             this.btnResetSimulation.TabIndex = 60;
             this.btnResetSimulation.Text = "Reset Simulation";
             this.btnResetSimulation.UseVisualStyleBackColor = true;
+            this.btnResetSimulation.Click += new System.EventHandler(this.btnResetSimulation_Click);
             // 
             // btnD
             // 
@@ -166,6 +167,7 @@
             this.btnLoad.TabIndex = 43;
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // numRow
             // 
