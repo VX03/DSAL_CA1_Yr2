@@ -193,14 +193,6 @@ namespace DSAL_CA1_Yr2
                                 //if left or right seat is null
                                 if (leftSeat == null || rightSeat == null)
                                 {
-                                    /*
-                                    //there is a different person seating at the side
-                                    if (!((leftSeat != null && leftSeat.BookingPerson == bookingPersonArray[i]) || (rightSeat != null && rightSeat.BookingPerson == bookingPersonArray[i]) || seatListArray[i].Counter == 0))
-                                    {
-                                        MessageBox.Show("Can only book adjacent seat");
-                                        return;
-                                     }
-                                    */
                                     //none chosen
                                     if (seatListArray[i].Counter == 0 && ((leftSeat != null && leftSeat.BookingPerson == null) || (rightSeat != null && rightSeat.BookingPerson == null)))
                                     {

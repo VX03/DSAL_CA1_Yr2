@@ -23,7 +23,8 @@ namespace DSAL_CA1_Yr2
         private string[] bookingPersonArray = { "A", "B", "C", "D" };
         private bool bookSeats = false;
         private Boolean load = false;
-
+        private int[] rowDivider =  { 3 };
+        private int[] colDivider =  { 3,5 };
         public safe_distance_smart_mode()
         {
             InitializeComponent();
@@ -84,8 +85,6 @@ namespace DSAL_CA1_Yr2
 
                 int row = int.Parse(numRow.Text);
                 int seatsPerRow = int.Parse(numCol.Text);
-                int[] rowDivider = { 5 };
-                int[] colDivider = { 5 };
 
 
                 for (int i = 1; i <= row; i++)
@@ -288,11 +287,7 @@ namespace DSAL_CA1_Yr2
                                 }//end of if for null seats
 
                                 //for non-null seats
-                                else if (seatListArray[i].Counter == 0 &&
-                                        leftSeat.BookingPerson == null &&
-                                        rightSeat.BookingPerson == null &&
-                                        frontSeat.BookingPerson == null &&
-                                        backSeat.BookingPerson == null)
+                                else if (seatListArray[i].Counter == 0 )
                                 {
                                     seatListArray[i].Counter = seatListArray[i].Counter + 1;
                                     seat.BookStatus = true;
@@ -303,10 +298,10 @@ namespace DSAL_CA1_Yr2
                                 }//end else if
 
 
-                            else if ((leftSeat.BookingPerson == bookingPersonArray[i] || leftSeat.BookingPerson == null) &&
-                                     (rightSeat.BookingPerson == bookingPersonArray[i] || rightSeat.BookingPerson == null) &&
-                                     (frontSeat.BookingPerson == bookingPersonArray[i] || frontSeat.BookingPerson == null) &&
-                                     (backSeat.BookingPerson == bookingPersonArray[i] || backSeat.BookingPerson == null))
+                            else if ((leftSeat.BookingPerson == bookingPersonArray[i]) ||
+                                     (rightSeat.BookingPerson == bookingPersonArray[i]) ||
+                                     (frontSeat.BookingPerson == bookingPersonArray[i]) ||
+                                     (backSeat.BookingPerson == bookingPersonArray[i]))
                             {
                                 seatListArray[i].Counter = seatListArray[i].Counter + 1;
                                 seat.BookStatus = true;
@@ -317,15 +312,6 @@ namespace DSAL_CA1_Yr2
                             }
                                 else
                                 {
-                                    if(seat.Row == 6 || seat.Column == 6)
-                                    {
-                                    seatListArray[i].Counter = seatListArray[i].Counter + 1;
-                                    seat.BookStatus = true;
-                                    seat.BookingPerson = bookingPersonArray[i];
-                                    seatListArray[i].InsertAtEnd(seat);
-                                    label.BackColor = color;
-                                    return;
-                                    }
                                     MessageBox.Show("Unable to book Seat");
                                 return;
                                 }//end else if
@@ -534,52 +520,91 @@ namespace DSAL_CA1_Yr2
                 Color[] colorArray = getColorArray();
                 bool getColor = false;
                 List<Label> labels = panelSeats.Controls.OfType<Label>().ToList();
+                int number = 0;
 
-                foreach (Label label in labels)
+                foreach (Label label in labels) // Looping through all seatLabels
                 {
-                    SeatInfo si = (SeatInfo)label.Tag;
+                    SeatInfo si = (SeatInfo)label.Tag; // Current seat
                     
-                    foreach ( SeatDoubleLinkedList seatlist in seatListArray)
+                    foreach ( SeatDoubleLinkedList seatlist in seatListArray) // Looping through the persons' booking
                     {
                         Seat seat = seatlist.SearchByRowAndColumn(si.Row, si.Column);
+                        Seat leftSeat = seatList.SearchByRowAndColumn(si.Row, si.Column - 1);
+                        Seat rightSeat = seatList.SearchByRowAndColumn(si.Row, si.Column + 1);
+                        Seat frontSeat = seatList.SearchByRowAndColumn(si.Row - 1, si.Column);
+                        Seat backSeat = seatList.SearchByRowAndColumn(si.Row + 1, si.Column);
+
                         if (seat != null)
                         {
-                            foreach (Label label2 in labels)
-                            {
-                                SeatInfo seatinfo = (SeatInfo)label2.Tag;
-                                Seat s = seatList.SearchByRowAndColumn(seatinfo.Row, seatinfo.Column);
-                                if (s == null) ;
-                                else if ((label2.BackColor == Color.DarkBlue) || seat.CanBook == false) ;
-                              
-                                else
+                            Boolean here;
+                                if (leftSeat != null && leftSeat.CanBook && !leftSeat.BookStatus)
                                 {
-                                    if (load == true && seatlist.PersonChosen == true) ;
-      
-                                    else if (si.Column == seatinfo.Column)
-                                    {
-                                        if (si.Row == seatinfo.Row - 1)
-                                        {
-                                            label2.BackColor = Color.LightSeaGreen;
-                                        }
-                                        if (si.Row == seatinfo.Row + 1)
-                                        {
-                                            label2.BackColor = Color.LightSeaGreen;
-                                        }
-                                    }
-                                    else if (si.Row == seatinfo.Row)
-                                    {
-                                        if (si.Column == seatinfo.Column - 1)
-                                        {
-                                            label2.BackColor = Color.LightSeaGreen;
-                                        }
-                                        if (si.Column == seatinfo.Column + 1)
-                                        {
-                                            label2.BackColor = Color.LightSeaGreen;
-                                        }
-                                    }
+                                     here = false;
+                                     for (int n = 0; n < colDivider.Length; n++)
+                                     {
+                                         if(leftSeat.Column == colDivider[n])
+                                         {
+                                             here = true;
+                                             break;
+                                         }
+                                     }
+                                     if (!here)
+                                     {
+                                         leftSeat.CanBook = false;
+                                     }
                                 }
-                            }//foreach
+                                if (rightSeat != null && rightSeat.CanBook && !rightSeat.BookStatus)
+                                {
+                                     here = false;
+                                     for (int n = 0; n < colDivider.Length; n++)
+                                     {
+                                         if (rightSeat.Column == colDivider[n]+1)
+                                         {
+                                             here = true;
+                                             break;
+                                         }
+                                     }
+                                     if (!here)
+                                     {
+                                         rightSeat.CanBook = false;
+                                     }
+                                }
+                                if (backSeat != null && backSeat.CanBook && !backSeat.BookStatus)
+                                {
+                                     here = false;
+                                     for (int n = 0; n < rowDivider.Length; n++)
+                                     {
+                                         if (backSeat.Row == rowDivider[n]+1)
+                                         {
+                                             here = true;
+                                             break;
+                                         }
+                                     }
+                                     if (!here)
+                                     {
+                                         backSeat.CanBook = false;
+                                     }
+                                }
+                                if (frontSeat != null && frontSeat.CanBook && !frontSeat.BookStatus)
+                                {
+                                     here = false;
+                                     for (int n = 0; n < rowDivider.Length; n++)
+                                     {
+                                         if (frontSeat.Row == rowDivider[n])
+                                         {
+                                             here = true;
+                                             break;
+                                         }
+                                     }
+                                     if (!here)
+                                     {
+                                         frontSeat.CanBook = false;
+                                     }
+                                }
+                            
+
                         }
+                        
                     }
                 }
                 int num = 0;
@@ -599,9 +624,13 @@ namespace DSAL_CA1_Yr2
                     {
                         SeatInfo seatinfo = (SeatInfo)label.Tag;
                         Seat s = seatDoubleLinkedList.SearchByRowAndColumn(seatinfo.Row, seatinfo.Column);
+                        if(seat.CanBook == false)
+                        {
+                            label.BackColor = Color.DarkBlue;
+                        }
                         if (s != null)
                         {
-                            if (s.CanBook == false)
+                            if (s .CanBook == false)
                             {
                                 label.BackColor = Color.DarkBlue;
                             }
@@ -752,8 +781,6 @@ namespace DSAL_CA1_Yr2
                 numCol.Text = stringList[1];
                 int row = int.Parse(numRow.Text);
                 int seatsPerRow = int.Parse(numCol.Text);
-                int[] rowDivider = { 5 };
-                int[] colDivider = { 5 };
 
                 for (int i = 1; i <= row; i++)
                 {
