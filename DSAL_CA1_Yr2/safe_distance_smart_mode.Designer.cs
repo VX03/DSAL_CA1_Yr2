@@ -111,8 +111,8 @@
             // 
             // btnB
             // 
-            this.btnB.BackColor = System.Drawing.Color.Blue;
-            this.btnB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnB.BackColor = System.Drawing.Color.Cyan;
+            this.btnB.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnB.Location = new System.Drawing.Point(43, 259);
             this.btnB.Name = "btnB";
             this.btnB.Size = new System.Drawing.Size(270, 29);

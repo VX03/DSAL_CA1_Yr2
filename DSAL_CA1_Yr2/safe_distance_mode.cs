@@ -166,6 +166,11 @@ namespace DSAL_CA1_Yr2
                 return;
             }
 
+            if(label.BackColor == Color.DarkBlue)
+            {
+                MessageBox.Show("Unable to book");
+                return;
+            }
 
             try
             {

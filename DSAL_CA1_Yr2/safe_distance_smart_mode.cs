@@ -23,7 +23,7 @@ namespace DSAL_CA1_Yr2
         private string[] bookingPersonArray = { "A", "B", "C", "D" };
         private bool bookSeats = false;
         private Boolean load = false;
-        private int[] rowDivider =  { 3 };
+        private int[] rowDivider =  { 3,5 };
         private int[] colDivider =  { 3,5 };
         public safe_distance_smart_mode()
         {
@@ -534,7 +534,7 @@ namespace DSAL_CA1_Yr2
                         Seat frontSeat = seatList.SearchByRowAndColumn(si.Row - 1, si.Column);
                         Seat backSeat = seatList.SearchByRowAndColumn(si.Row + 1, si.Column);
 
-                        if (seat != null)
+                        if (seat != null && !seatlist.PersonChosen)
                         {
                             Boolean here;
                                 if (leftSeat != null && leftSeat.CanBook && !leftSeat.BookStatus)
